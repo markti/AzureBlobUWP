@@ -29,14 +29,19 @@ namespace BlobExplorer.ViewModel
 
         private void InitializeOptions()
         {
+            this.Options.Clear();
+            var refreshItem = new MenuItemViewModel() { Label = "Refresh", SymbolAsChar = '\uE149' };
             var addAccountItem = new MenuItemViewModel() { Label = "Add Account", SymbolAsChar = '\uE1E2', PageType = typeof(NewStorageAccountView) };
             var settingsItem = new MenuItemViewModel() { Label = "Settings", SymbolAsChar = '\uE115', PageType = typeof(SettingsView) };
+
+            this.Options.Add(refreshItem);
             this.Options.Add(addAccountItem);
             this.Options.Add(settingsItem);
         }
 
         private async Task RefreshStorageAccounts()
         {
+            this.Accounts.Clear();
             var storageService = new LocalStorageService();
             var accounts = await storageService.GetStorageAccounts();
             foreach(var item in accounts)

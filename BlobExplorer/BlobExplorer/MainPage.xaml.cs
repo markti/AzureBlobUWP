@@ -43,7 +43,10 @@ namespace BlobExplorer
         private async void HamburgerMenu_OnOptionsItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as MenuItemViewModel;
-            ContentFrame.Navigate(item.PageType);
+            if(item.PageType != null)
+            {
+                ContentFrame.Navigate(item.PageType);
+            }
         }
     }
 }

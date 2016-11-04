@@ -32,5 +32,10 @@ namespace BlobExplorer.Views
             viewModel = new NewStorageAccountViewModel();
             this.DataContext = viewModel;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.Save();
+        }
     }
 }

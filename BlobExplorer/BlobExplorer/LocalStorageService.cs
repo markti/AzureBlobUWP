@@ -39,6 +39,16 @@ namespace BlobExplorer
             {
                 list.Add(account);
             }
+
+            var rawJson = JsonConvert.SerializeObject(list);
+
+            var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("accounts.json");
+
+            var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("accounts.json", CreationCollisionOption.OpenIfExists);
+
+            await FileIO.WriteTextAsync(accountsFile, rawJson);
+
+            
         }
     }
 }

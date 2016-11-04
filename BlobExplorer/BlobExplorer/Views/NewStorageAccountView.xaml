@@ -8,6 +8,16 @@
     mc:Ignorable="d"
     >
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Add New Account" FontSize="84" />
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Account Name" />
+                <TextBox Text="{Binding Path=CurrentAccount.Name}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Account Key" />
+                <TextBox Text="{Binding Path=CurrentAccount.Key}" />
+            </StackPanel>
+            <Button Content="Save" Click="Button_Click" />
+        </StackPanel>
     </Grid>
 </Page>

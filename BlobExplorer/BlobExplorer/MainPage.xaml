@@ -11,44 +11,51 @@
     >
 
     <Page.Resources>
-
-        <DataTemplate x:Key="HamburgerMenuItem">
+        <DataTemplate x:Key="AccountMenuItem">
             <Grid Width="240" Height="48">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <FontIcon Grid.Column="0" 
-                          Margin="12,12,11,12" 
-                          FontFamily="Segoe MDL2 Assets" 
-                          Glyph="{Binding Glyph}"
-                          Foreground="White" />
-                <TextBlock Grid.Column="1" 
-                           Text="{Binding Label}" 
-                           Foreground="White" 
-                           FontSize="16" 
-                           VerticalAlignment="Center" />
+                <FontIcon 
+                    Grid.Column="0" 
+                    Margin="12,12,11,12" 
+                    FontFamily="Segoe MDL2 Assets" 
+                    Glyph="{Binding Glyph}"
+                    Foreground="White" 
+                    />
+                <TextBlock 
+                    Grid.Column="1" 
+                    Text="{Binding Name}" 
+                    Foreground="White" 
+                    FontSize="16" 
+                    VerticalAlignment="Center" 
+                    />
             </Grid>
         </DataTemplate>
 
-
-
-        <DataTemplate x:Key="HamburgerMenuImageItem">
+        <DataTemplate x:Key="OptionMenuItem">
             <Grid Width="240" Height="48">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Image Source="{Binding Glyph}" 
-                       Stretch="UniformToFill" 
-                       Margin="12,12,11,12" />
-                <TextBlock Grid.Column="1" 
-                           Text="{Binding Label}" 
-                           Foreground="White" 
-                           FontSize="16" 
-                           VerticalAlignment="Center" />
+                <FontIcon 
+                    Grid.Column="0" 
+                    Margin="12,12,11,12" 
+                    FontFamily="Segoe MDL2 Assets" 
+                    Glyph="{Binding SymbolAsChar}"
+                    Foreground="White" 
+                    />
+                <TextBlock 
+                    Grid.Column="1" 
+                    Text="{Binding Label}" 
+                    Foreground="White" 
+                    FontSize="16" 
+                    VerticalAlignment="Center" 
+                    />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -58,8 +65,8 @@
             x:Name="HamburgerMenuControl"
             PaneBackground="CornflowerBlue"
             Foreground="White"
-            ItemTemplate="{StaticResource HamburgerMenuImageItem}"
-            OptionsItemTemplate="{StaticResource HamburgerMenuItem}"
+            ItemTemplate="{StaticResource AccountMenuItem}"
+            OptionsItemTemplate="{StaticResource OptionMenuItem}"
             ItemClick="HamburgerMenu_OnItemClick"
             OptionsItemClick="HamburgerMenu_OnOptionsItemClick"
             HamburgerWidth="48"
