@@ -26,5 +26,11 @@ namespace BlobExplorer
         {
             this.InitializeComponent();
         }
+        private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
+        private async void HamburgerMenu_OnOptionsItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
     }
 }

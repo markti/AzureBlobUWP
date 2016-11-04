@@ -67,6 +67,18 @@ namespace BlobExplorer.BlobExplorer_XamlTypeInfo
             {
                 xamlType = CreateXamlType(typeIndex);
             }
+            var userXamlType = xamlType as global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType;
+            if(xamlType == null || (userXamlType != null && userXamlType.IsReturnTypeStub && !userXamlType.IsLocalType))
+            {
+                global::Windows.UI.Xaml.Markup.IXamlType libXamlType = CheckOtherMetadataProvidersForType(type);
+                if (libXamlType != null)
+                {
+                    if(libXamlType.IsConstructible || xamlType == null)
+                    {
+                        xamlType = libXamlType;
+                    }
+                }
+            }
             if (xamlType != null)
             {
                 _xamlTypeCacheByName.Add(xamlType.FullName, xamlType);
@@ -90,6 +102,18 @@ namespace BlobExplorer.BlobExplorer_XamlTypeInfo
             if(typeIndex != -1)
             {
                 xamlType = CreateXamlType(typeIndex);
+            }
+            var userXamlType = xamlType as global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType;
+            if(xamlType == null || (userXamlType != null && userXamlType.IsReturnTypeStub && !userXamlType.IsLocalType))
+            {
+                global::Windows.UI.Xaml.Markup.IXamlType libXamlType = CheckOtherMetadataProvidersForName(typeName);
+                if (libXamlType != null)
+                {
+                    if(libXamlType.IsConstructible || xamlType == null)
+                    {
+                        xamlType = libXamlType;
+                    }
+                }
             }
             if (xamlType != null)
             {
@@ -132,15 +156,43 @@ namespace BlobExplorer.BlobExplorer_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[3];
-            _typeNameTable[0] = "BlobExplorer.MainPage";
-            _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
-            _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable = new string[17];
+            _typeNameTable[0] = "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu";
+            _typeNameTable[1] = "Windows.UI.Xaml.Controls.ContentControl";
+            _typeNameTable[2] = "Windows.UI.Xaml.Media.Brush";
+            _typeNameTable[3] = "Windows.UI.Xaml.DataTemplate";
+            _typeNameTable[4] = "Double";
+            _typeNameTable[5] = "Object";
+            _typeNameTable[6] = "Windows.UI.Xaml.Controls.ItemCollection";
+            _typeNameTable[7] = "Windows.UI.Xaml.Visibility";
+            _typeNameTable[8] = "Int32";
+            _typeNameTable[9] = "Windows.UI.Xaml.Thickness";
+            _typeNameTable[10] = "Windows.UI.Xaml.Controls.SplitViewPanePlacement";
+            _typeNameTable[11] = "Windows.UI.Xaml.Controls.SplitViewDisplayMode";
+            _typeNameTable[12] = "Boolean";
+            _typeNameTable[13] = "BlobExplorer.MainPage";
+            _typeNameTable[14] = "Windows.UI.Xaml.Controls.Page";
+            _typeNameTable[15] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[16] = "BlobExplorer.Views.NewStorageAccountView";
 
-            _typeTable = new global::System.Type[3];
-            _typeTable[0] = typeof(global::BlobExplorer.MainPage);
-            _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
-            _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable = new global::System.Type[17];
+            _typeTable[0] = typeof(global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu);
+            _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.ContentControl);
+            _typeTable[2] = typeof(global::Windows.UI.Xaml.Media.Brush);
+            _typeTable[3] = typeof(global::Windows.UI.Xaml.DataTemplate);
+            _typeTable[4] = typeof(global::System.Double);
+            _typeTable[5] = typeof(global::System.Object);
+            _typeTable[6] = typeof(global::Windows.UI.Xaml.Controls.ItemCollection);
+            _typeTable[7] = typeof(global::Windows.UI.Xaml.Visibility);
+            _typeTable[8] = typeof(global::System.Int32);
+            _typeTable[9] = typeof(global::Windows.UI.Xaml.Thickness);
+            _typeTable[10] = typeof(global::Windows.UI.Xaml.Controls.SplitViewPanePlacement);
+            _typeTable[11] = typeof(global::Windows.UI.Xaml.Controls.SplitViewDisplayMode);
+            _typeTable[12] = typeof(global::System.Boolean);
+            _typeTable[13] = typeof(global::BlobExplorer.MainPage);
+            _typeTable[14] = typeof(global::Windows.UI.Xaml.Controls.Page);
+            _typeTable[15] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[16] = typeof(global::BlobExplorer.Views.NewStorageAccountView);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -175,7 +227,9 @@ namespace BlobExplorer.BlobExplorer_XamlTypeInfo
             return -1;
         }
 
-        private object Activate_0_MainPage() { return new global::BlobExplorer.MainPage(); }
+        private object Activate_0_HamburgerMenu() { return new global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu(); }
+        private object Activate_13_MainPage() { return new global::BlobExplorer.MainPage(); }
+        private object Activate_16_NewStorageAccountView() { return new global::BlobExplorer.Views.NewStorageAccountView(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -187,30 +241,511 @@ namespace BlobExplorer.BlobExplorer_XamlTypeInfo
             switch (typeIndex)
             {
 
-            case 0:   //  BlobExplorer.MainPage
+            case 0:   //  Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu
+                userType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.ContentControl"));
+                userType.Activator = Activate_0_HamburgerMenu;
+                userType.AddMemberName("PaneBackground");
+                userType.AddMemberName("ItemTemplate");
+                userType.AddMemberName("OptionsItemTemplate");
+                userType.AddMemberName("HamburgerWidth");
+                userType.AddMemberName("OptionsItemsSource");
+                userType.AddMemberName("OptionsItems");
+                userType.AddMemberName("OptionsVisibility");
+                userType.AddMemberName("SelectedOptionsItem");
+                userType.AddMemberName("SelectedOptionsIndex");
+                userType.AddMemberName("HamburgerMenuTemplate");
+                userType.AddMemberName("HamburgerHeight");
+                userType.AddMemberName("HamburgerMargin");
+                userType.AddMemberName("OpenPaneLength");
+                userType.AddMemberName("PanePlacement");
+                userType.AddMemberName("DisplayMode");
+                userType.AddMemberName("CompactPaneLength");
+                userType.AddMemberName("IsPaneOpen");
+                userType.AddMemberName("ItemsSource");
+                userType.AddMemberName("Items");
+                userType.AddMemberName("SelectedItem");
+                userType.AddMemberName("SelectedIndex");
+                xamlType = userType;
+                break;
+
+            case 1:   //  Windows.UI.Xaml.Controls.ContentControl
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 2:   //  Windows.UI.Xaml.Media.Brush
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 3:   //  Windows.UI.Xaml.DataTemplate
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 4:   //  Double
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 5:   //  Object
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 6:   //  Windows.UI.Xaml.Controls.ItemCollection
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 7:   //  Windows.UI.Xaml.Visibility
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 8:   //  Int32
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 9:   //  Windows.UI.Xaml.Thickness
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 10:   //  Windows.UI.Xaml.Controls.SplitViewPanePlacement
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 11:   //  Windows.UI.Xaml.Controls.SplitViewDisplayMode
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 12:   //  Boolean
+                xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 13:   //  BlobExplorer.MainPage
                 userType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_0_MainPage;
+                userType.Activator = Activate_13_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 1:   //  Windows.UI.Xaml.Controls.Page
+            case 14:   //  Windows.UI.Xaml.Controls.Page
                 xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 2:   //  Windows.UI.Xaml.Controls.UserControl
+            case 15:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                break;
+
+            case 16:   //  BlobExplorer.Views.NewStorageAccountView
+                userType = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_16_NewStorageAccountView;
+                userType.SetIsLocalType();
+                xamlType = userType;
                 break;
             }
             return xamlType;
         }
 
+        private global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider> _otherProviders;
+        private global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider> OtherProviders
+        {
+            get
+            {
+                if(_otherProviders == null)
+                {
+                    var otherProviders = new global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider>();
+                    global::Windows.UI.Xaml.Markup.IXamlMetadataProvider provider;
+                    provider = new global::Microsoft.Toolkit.Uwp.UI.Controls.Microsoft_Toolkit_Uwp_UI_Controls_XamlTypeInfo.XamlMetaDataProvider() as global::Windows.UI.Xaml.Markup.IXamlMetadataProvider;
+                    otherProviders.Add(provider); 
+                    _otherProviders = otherProviders;
+                }
+                return _otherProviders;
+            }
+        }
 
+        private global::Windows.UI.Xaml.Markup.IXamlType CheckOtherMetadataProvidersForName(string typeName)
+        {
+            global::Windows.UI.Xaml.Markup.IXamlType xamlType = null;
+            global::Windows.UI.Xaml.Markup.IXamlType foundXamlType = null;
+            foreach(global::Windows.UI.Xaml.Markup.IXamlMetadataProvider xmp in OtherProviders)
+            {
+                xamlType = xmp.GetXamlType(typeName);
+                if(xamlType != null)
+                {
+                    if(xamlType.IsConstructible)    // not Constructible means it might be a Return Type Stub
+                    {
+                        return xamlType;
+                    }
+                    foundXamlType = xamlType;
+                }
+            }
+            return foundXamlType;
+        }
+
+        private global::Windows.UI.Xaml.Markup.IXamlType CheckOtherMetadataProvidersForType(global::System.Type type)
+        {
+            global::Windows.UI.Xaml.Markup.IXamlType xamlType = null;
+            global::Windows.UI.Xaml.Markup.IXamlType foundXamlType = null;
+            foreach(global::Windows.UI.Xaml.Markup.IXamlMetadataProvider xmp in OtherProviders)
+            {
+                xamlType = xmp.GetXamlType(type);
+                if(xamlType != null)
+                {
+                    if(xamlType.IsConstructible)    // not Constructible means it might be a Return Type Stub
+                    {
+                        return xamlType;
+                    }
+                    foundXamlType = xamlType;
+                }
+            }
+            return foundXamlType;
+        }
+
+        private object get_0_HamburgerMenu_PaneBackground(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.PaneBackground;
+        }
+        private void set_0_HamburgerMenu_PaneBackground(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.PaneBackground = (global::Windows.UI.Xaml.Media.Brush)Value;
+        }
+        private object get_1_HamburgerMenu_ItemTemplate(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.ItemTemplate;
+        }
+        private void set_1_HamburgerMenu_ItemTemplate(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.ItemTemplate = (global::Windows.UI.Xaml.DataTemplate)Value;
+        }
+        private object get_2_HamburgerMenu_OptionsItemTemplate(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.OptionsItemTemplate;
+        }
+        private void set_2_HamburgerMenu_OptionsItemTemplate(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.OptionsItemTemplate = (global::Windows.UI.Xaml.DataTemplate)Value;
+        }
+        private object get_3_HamburgerMenu_HamburgerWidth(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.HamburgerWidth;
+        }
+        private void set_3_HamburgerMenu_HamburgerWidth(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.HamburgerWidth = (global::System.Double)Value;
+        }
+        private object get_4_HamburgerMenu_OptionsItemsSource(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.OptionsItemsSource;
+        }
+        private void set_4_HamburgerMenu_OptionsItemsSource(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.OptionsItemsSource = (global::System.Object)Value;
+        }
+        private object get_5_HamburgerMenu_OptionsItems(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.OptionsItems;
+        }
+        private object get_6_HamburgerMenu_OptionsVisibility(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.OptionsVisibility;
+        }
+        private void set_6_HamburgerMenu_OptionsVisibility(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.OptionsVisibility = (global::Windows.UI.Xaml.Visibility)Value;
+        }
+        private object get_7_HamburgerMenu_SelectedOptionsItem(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.SelectedOptionsItem;
+        }
+        private void set_7_HamburgerMenu_SelectedOptionsItem(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.SelectedOptionsItem = (global::System.Object)Value;
+        }
+        private object get_8_HamburgerMenu_SelectedOptionsIndex(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.SelectedOptionsIndex;
+        }
+        private void set_8_HamburgerMenu_SelectedOptionsIndex(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.SelectedOptionsIndex = (global::System.Int32)Value;
+        }
+        private object get_9_HamburgerMenu_HamburgerMenuTemplate(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.HamburgerMenuTemplate;
+        }
+        private void set_9_HamburgerMenu_HamburgerMenuTemplate(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.HamburgerMenuTemplate = (global::Windows.UI.Xaml.DataTemplate)Value;
+        }
+        private object get_10_HamburgerMenu_HamburgerHeight(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.HamburgerHeight;
+        }
+        private void set_10_HamburgerMenu_HamburgerHeight(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.HamburgerHeight = (global::System.Double)Value;
+        }
+        private object get_11_HamburgerMenu_HamburgerMargin(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.HamburgerMargin;
+        }
+        private void set_11_HamburgerMenu_HamburgerMargin(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.HamburgerMargin = (global::Windows.UI.Xaml.Thickness)Value;
+        }
+        private object get_12_HamburgerMenu_OpenPaneLength(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.OpenPaneLength;
+        }
+        private void set_12_HamburgerMenu_OpenPaneLength(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.OpenPaneLength = (global::System.Double)Value;
+        }
+        private object get_13_HamburgerMenu_PanePlacement(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.PanePlacement;
+        }
+        private void set_13_HamburgerMenu_PanePlacement(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.PanePlacement = (global::Windows.UI.Xaml.Controls.SplitViewPanePlacement)Value;
+        }
+        private object get_14_HamburgerMenu_DisplayMode(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.DisplayMode;
+        }
+        private void set_14_HamburgerMenu_DisplayMode(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.DisplayMode = (global::Windows.UI.Xaml.Controls.SplitViewDisplayMode)Value;
+        }
+        private object get_15_HamburgerMenu_CompactPaneLength(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.CompactPaneLength;
+        }
+        private void set_15_HamburgerMenu_CompactPaneLength(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.CompactPaneLength = (global::System.Double)Value;
+        }
+        private object get_16_HamburgerMenu_IsPaneOpen(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.IsPaneOpen;
+        }
+        private void set_16_HamburgerMenu_IsPaneOpen(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.IsPaneOpen = (global::System.Boolean)Value;
+        }
+        private object get_17_HamburgerMenu_ItemsSource(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.ItemsSource;
+        }
+        private void set_17_HamburgerMenu_ItemsSource(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.ItemsSource = (global::System.Object)Value;
+        }
+        private object get_18_HamburgerMenu_Items(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.Items;
+        }
+        private object get_19_HamburgerMenu_SelectedItem(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.SelectedItem;
+        }
+        private void set_19_HamburgerMenu_SelectedItem(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.SelectedItem = (global::System.Object)Value;
+        }
+        private object get_20_HamburgerMenu_SelectedIndex(object instance)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            return that.SelectedIndex;
+        }
+        private void set_20_HamburgerMenu_SelectedIndex(object instance, object Value)
+        {
+            var that = (global::Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu)instance;
+            that.SelectedIndex = (global::System.Int32)Value;
+        }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
             global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember xamlMember = null;
-            // No Local Properties
+            global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType userType;
+
+            switch (longMemberName)
+            {
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.PaneBackground":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "PaneBackground", "Windows.UI.Xaml.Media.Brush");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_0_HamburgerMenu_PaneBackground;
+                xamlMember.Setter = set_0_HamburgerMenu_PaneBackground;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.ItemTemplate":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "ItemTemplate", "Windows.UI.Xaml.DataTemplate");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_1_HamburgerMenu_ItemTemplate;
+                xamlMember.Setter = set_1_HamburgerMenu_ItemTemplate;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.OptionsItemTemplate":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "OptionsItemTemplate", "Windows.UI.Xaml.DataTemplate");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_2_HamburgerMenu_OptionsItemTemplate;
+                xamlMember.Setter = set_2_HamburgerMenu_OptionsItemTemplate;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.HamburgerWidth":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "HamburgerWidth", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_3_HamburgerMenu_HamburgerWidth;
+                xamlMember.Setter = set_3_HamburgerMenu_HamburgerWidth;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.OptionsItemsSource":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "OptionsItemsSource", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_4_HamburgerMenu_OptionsItemsSource;
+                xamlMember.Setter = set_4_HamburgerMenu_OptionsItemsSource;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.OptionsItems":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "OptionsItems", "Windows.UI.Xaml.Controls.ItemCollection");
+                xamlMember.Getter = get_5_HamburgerMenu_OptionsItems;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.OptionsVisibility":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "OptionsVisibility", "Windows.UI.Xaml.Visibility");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_6_HamburgerMenu_OptionsVisibility;
+                xamlMember.Setter = set_6_HamburgerMenu_OptionsVisibility;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.SelectedOptionsItem":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "SelectedOptionsItem", "Object");
+                xamlMember.Getter = get_7_HamburgerMenu_SelectedOptionsItem;
+                xamlMember.Setter = set_7_HamburgerMenu_SelectedOptionsItem;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.SelectedOptionsIndex":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "SelectedOptionsIndex", "Int32");
+                xamlMember.Getter = get_8_HamburgerMenu_SelectedOptionsIndex;
+                xamlMember.Setter = set_8_HamburgerMenu_SelectedOptionsIndex;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.HamburgerMenuTemplate":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "HamburgerMenuTemplate", "Windows.UI.Xaml.DataTemplate");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_9_HamburgerMenu_HamburgerMenuTemplate;
+                xamlMember.Setter = set_9_HamburgerMenu_HamburgerMenuTemplate;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.HamburgerHeight":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "HamburgerHeight", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_10_HamburgerMenu_HamburgerHeight;
+                xamlMember.Setter = set_10_HamburgerMenu_HamburgerHeight;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.HamburgerMargin":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "HamburgerMargin", "Windows.UI.Xaml.Thickness");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_11_HamburgerMenu_HamburgerMargin;
+                xamlMember.Setter = set_11_HamburgerMenu_HamburgerMargin;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.OpenPaneLength":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "OpenPaneLength", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_12_HamburgerMenu_OpenPaneLength;
+                xamlMember.Setter = set_12_HamburgerMenu_OpenPaneLength;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.PanePlacement":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "PanePlacement", "Windows.UI.Xaml.Controls.SplitViewPanePlacement");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_13_HamburgerMenu_PanePlacement;
+                xamlMember.Setter = set_13_HamburgerMenu_PanePlacement;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.DisplayMode":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "DisplayMode", "Windows.UI.Xaml.Controls.SplitViewDisplayMode");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_14_HamburgerMenu_DisplayMode;
+                xamlMember.Setter = set_14_HamburgerMenu_DisplayMode;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.CompactPaneLength":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "CompactPaneLength", "Double");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_15_HamburgerMenu_CompactPaneLength;
+                xamlMember.Setter = set_15_HamburgerMenu_CompactPaneLength;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.IsPaneOpen":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "IsPaneOpen", "Boolean");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_16_HamburgerMenu_IsPaneOpen;
+                xamlMember.Setter = set_16_HamburgerMenu_IsPaneOpen;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.ItemsSource":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "ItemsSource", "Object");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_17_HamburgerMenu_ItemsSource;
+                xamlMember.Setter = set_17_HamburgerMenu_ItemsSource;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.Items":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "Items", "Windows.UI.Xaml.Controls.ItemCollection");
+                xamlMember.Getter = get_18_HamburgerMenu_Items;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.SelectedItem":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "SelectedItem", "Object");
+                xamlMember.Getter = get_19_HamburgerMenu_SelectedItem;
+                xamlMember.Setter = set_19_HamburgerMenu_SelectedItem;
+                break;
+            case "Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu.SelectedIndex":
+                userType = (global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu");
+                xamlMember = new global::BlobExplorer.BlobExplorer_XamlTypeInfo.XamlMember(this, "SelectedIndex", "Int32");
+                xamlMember.Getter = get_20_HamburgerMenu_SelectedIndex;
+                xamlMember.Setter = set_20_HamburgerMenu_SelectedIndex;
+                break;
+            }
             return xamlMember;
         }
     }
