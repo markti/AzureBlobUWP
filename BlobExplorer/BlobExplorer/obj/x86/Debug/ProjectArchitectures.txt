@@ -1,0 +1,1 @@
+C:\Users\markt\Source\Repos\AzureBlobUWP\BlobExplorer\BlobExplorer\BlobExplorer.csproj;x86
