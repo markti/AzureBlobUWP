@@ -55,13 +55,16 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:HamburgerMenu
-            PaneBackground="{Binding PaneBackground.Value}" x:Name="HamburgerMenuControl"
+            x:Name="HamburgerMenuControl"
+            PaneBackground="CornflowerBlue"
             Foreground="White"
             ItemTemplate="{StaticResource HamburgerMenuImageItem}"
             OptionsItemTemplate="{StaticResource HamburgerMenuItem}"
             ItemClick="HamburgerMenu_OnItemClick"
             OptionsItemClick="HamburgerMenu_OnOptionsItemClick"
             HamburgerWidth="48"
+            ItemsSource="{Binding Accounts}"
+            OptionsItemsSource="{Binding Options}"
             >
         </controls:HamburgerMenu>
     </Grid>

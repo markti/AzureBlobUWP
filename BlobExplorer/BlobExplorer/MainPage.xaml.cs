@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlobExplorer.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,19 @@ namespace BlobExplorer
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        MainViewModel viewModel;
+
         public MainPage()
         {
             this.InitializeComponent();
+            this.viewModel = new MainViewModel();
+            this.DataContext = viewModel;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            viewModel.OnNavigatedTo();
         }
         private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
         {
