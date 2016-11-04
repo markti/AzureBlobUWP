@@ -109,6 +109,9 @@
     <Compile Include="Views\NewStorageAccountView.xaml.cs">
       <DependentUpon>NewStorageAccountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NoAccountsView.xaml.cs">
+      <DependentUpon>NoAccountsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NewStorageAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NoAccountsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

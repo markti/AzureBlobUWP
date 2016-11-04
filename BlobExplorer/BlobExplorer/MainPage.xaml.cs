@@ -1,4 +1,7 @@
-﻿using BlobExplorer.ViewModel;
+﻿using BlobExplorer.Events;
+using BlobExplorer.ViewModel;
+using BlobExplorer.Views;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +33,15 @@ namespace BlobExplorer
             this.InitializeComponent();
             this.viewModel = new MainViewModel();
             this.DataContext = viewModel;
+
+            Messenger.Default.Register<AccountCreatedEvent>(this, HandleAccountCreatedEvent);
+        }
+
+        private void HandleAccountCreatedEvent(AccountCreatedEvent obj)
+        {
+            // after we have saved a new account we should navigate away from the page
+            ContentFrame.Navigate(typeof(NoAccountsView));
+            this.HamburgerMenuControl.SelectedOptionsItem = null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
