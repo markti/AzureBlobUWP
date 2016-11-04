@@ -1,4 +1,5 @@
 ﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
 using BlobExplorer.ViewModel;
 using BlobExplorer.Views;
 using GalaSoft.MvvmLight.Messaging;
@@ -35,12 +36,24 @@ namespace BlobExplorer
             this.DataContext = viewModel;
 
             Messenger.Default.Register<AccountCreatedEvent>(this, HandleAccountCreatedEvent);
+            Messenger.Default.Register<AccountDeletedEvent>(this, HandleAccountDeletedEvent);
+        }
+
+        private void HandleAccountDeletedEvent(AccountDeletedEvent obj)
+        {
+            this.ResetNavigation();
         }
 
         private void HandleAccountCreatedEvent(AccountCreatedEvent obj)
         {
+            this.ResetNavigation();
+        }
+
+        private void ResetNavigation()
+        {
             // after we have saved a new account we should navigate away from the page
             ContentFrame.Navigate(typeof(NoAccountsView));
+            // this will clear the selection of the 'add new account' option
             this.HamburgerMenuControl.SelectedOptionsItem = null;
         }
 
@@ -51,6 +64,8 @@ namespace BlobExplorer
         }
         private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
         {
+            var item = e.ClickedItem as AzureStorageAccount;
+            ContentFrame.Navigate(typeof(ContainerListView), item);
         }
         private async void HamburgerMenu_OnOptionsItemClick(object sender, ItemClickEventArgs e)
         {

@@ -33,6 +33,12 @@ namespace BlobExplorer.ViewModel
         private void InitializeEventHandlers()
         {
             Messenger.Default.Register<AccountCreatedEvent>(this, HandleAccountCreatedEvent);
+            Messenger.Default.Register<AccountDeletedEvent>(this, HandleAccountDeletedEvent);
+        }
+
+        private void HandleAccountDeletedEvent(AccountDeletedEvent obj)
+        {
+            this.RefreshStorageAccounts();
         }
 
         private void HandleAccountCreatedEvent(AccountCreatedEvent obj)

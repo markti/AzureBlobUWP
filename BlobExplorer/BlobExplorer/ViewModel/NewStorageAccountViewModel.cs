@@ -27,9 +27,7 @@ namespace BlobExplorer.ViewModel
         public async Task Save()
         {
             var storageService = new LocalStorageService();
-            await storageService.SaveStorageAccount(CurrentAccount);
-
-            Messenger.Default.Send<AccountCreatedEvent>(new AccountCreatedEvent());
+            await storageService.AddStorageAccount(CurrentAccount);
         }
     }
 }

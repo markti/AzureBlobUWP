@@ -1,4 +1,6 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
+using GalaSoft.MvvmLight.Messaging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace BlobExplorer
             return list;
         }
 
-        public async Task SaveStorageAccount(AzureStorageAccount account)
+        public async Task AddStorageAccount(AzureStorageAccount account)
         {
             var list = await GetStorageAccounts();
 
@@ -40,7 +42,31 @@ namespace BlobExplorer
             if(match == null)
             {
                 list.Add(account);
+
+                await SaveList(list);
+
+                Messenger.Default.Send<AccountCreatedEvent>(new AccountCreatedEvent());
             }
+        }
+
+        public async Task RemoveStorageAccount(AzureStorageAccount account)
+        {
+            var list = await GetStorageAccounts();
+
+            var match = list.Where(f => f.Name == account.Name).FirstOrDefault();
+
+            if (match != null)
+            {
+                list.Remove(match);
+
+                await SaveList(list);
+
+                Messenger.Default.Send<AccountDeletedEvent>(new AccountDeletedEvent());
+            }
+        }
+
+        private async Task SaveList(List<AzureStorageAccount> list)
+        {
             try
             {
                 var rawJson = JsonConvert.SerializeObject(list);
@@ -53,10 +79,8 @@ namespace BlobExplorer
             }
             catch (Exception ex)
             {
-
+                // do something
             }
-
-            
         }
     }
 }
