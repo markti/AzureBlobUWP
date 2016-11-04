@@ -95,6 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Events\AccountCreatedEvent.cs" />
+    <Compile Include="Events\AccountDeletedEvent.cs" />
     <Compile Include="LocalStorageService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

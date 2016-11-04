@@ -21,9 +21,11 @@ namespace BlobExplorer
             {
                 var storageFile = await StorageFile.GetFileFromPathAsync(item.Path);
 
-                var rawJson = string.Empty;
+                var rawJson = await FileIO.ReadTextAsync(storageFile);
 
-                JsonConvert.DeserializeObject<List<AzureStorageAccount>>(rawJson);
+                var accounts = JsonConvert.DeserializeObject<List<AzureStorageAccount>>(rawJson);
+
+                list = accounts;
             }
 
             return list;
@@ -39,14 +41,20 @@ namespace BlobExplorer
             {
                 list.Add(account);
             }
+            try
+            {
+                var rawJson = JsonConvert.SerializeObject(list);
 
-            var rawJson = JsonConvert.SerializeObject(list);
+                var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("accounts.json");
 
-            var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("accounts.json");
+                var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("accounts.json", CreationCollisionOption.OpenIfExists);
 
-            var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("accounts.json", CreationCollisionOption.OpenIfExists);
+                await FileIO.WriteTextAsync(accountsFile, rawJson);
+            }
+            catch (Exception ex)
+            {
 
-            await FileIO.WriteTextAsync(accountsFile, rawJson);
+            }
 
             
         }

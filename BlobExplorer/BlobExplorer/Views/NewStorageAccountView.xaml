@@ -11,11 +11,11 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Account Name" />
-                <TextBox Text="{Binding Path=CurrentAccount.Name}" />
+                <TextBox Text="{Binding Path=CurrentAccount.Name, Mode=TwoWay}" />
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Account Key" />
-                <TextBox Text="{Binding Path=CurrentAccount.Key}" />
+                <TextBox Text="{Binding Path=CurrentAccount.Key, Mode=TwoWay}" />
             </StackPanel>
             <Button Content="Save" Click="Button_Click" />
         </StackPanel>

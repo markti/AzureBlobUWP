@@ -1,5 +1,7 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
 using BlobExplorer.Views;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,9 +22,20 @@ namespace BlobExplorer.ViewModel
             this.Options = new ObservableCollection<MenuItemViewModel>();
 
             this.InitializeOptions();
+            this.InitializeEventHandlers();
         }
 
         public void OnNavigatedTo()
+        {
+            this.RefreshStorageAccounts();
+        }
+
+        private void InitializeEventHandlers()
+        {
+            Messenger.Default.Register<AccountCreatedEvent>(this, HandleAccountCreatedEvent);
+        }
+
+        private void HandleAccountCreatedEvent(AccountCreatedEvent obj)
         {
             this.RefreshStorageAccounts();
         }

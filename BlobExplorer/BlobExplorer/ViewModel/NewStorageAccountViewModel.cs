@@ -1,4 +1,6 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +24,12 @@ namespace BlobExplorer.ViewModel
             this.CurrentAccount = new AzureStorageAccount();
         }
 
-        public void Save()
+        public async Task Save()
         {
             var storageService = new LocalStorageService();
-            storageService.SaveStorageAccount(CurrentAccount);
+            await storageService.SaveStorageAccount(CurrentAccount);
+
+            Messenger.Default.Send<AccountCreatedEvent>(new AccountCreatedEvent());
         }
     }
 }
