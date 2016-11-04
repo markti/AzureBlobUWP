@@ -1,4 +1,5 @@
 ﻿using BlobExplorer.Model;
+using BlobExplorer.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,8 +29,8 @@ namespace BlobExplorer.ViewModel
 
         private void InitializeOptions()
         {
-            var addAccountItem = new MenuItemViewModel() { Label = "Add Account", SymbolAsChar = '\uE1E2' };
-            var settingsItem = new MenuItemViewModel() { Label = "Settings", SymbolAsChar = '\uE115' };
+            var addAccountItem = new MenuItemViewModel() { Label = "Add Account", SymbolAsChar = '\uE1E2', PageType = typeof(NewStorageAccountView) };
+            var settingsItem = new MenuItemViewModel() { Label = "Settings", SymbolAsChar = '\uE115', PageType = typeof(SettingsView) };
             this.Options.Add(addAccountItem);
             this.Options.Add(settingsItem);
         }

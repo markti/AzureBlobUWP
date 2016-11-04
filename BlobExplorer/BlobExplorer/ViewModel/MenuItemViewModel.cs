@@ -24,5 +24,6 @@ namespace BlobExplorer.ViewModel
                 RaisePropertyChanged();
             }
         }
+        public Type PageType { get; set; }
     }
 }
