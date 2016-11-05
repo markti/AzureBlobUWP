@@ -13,6 +13,44 @@ namespace BlobExplorer
 {
     public class LocalStorageService
     {
+        public async Task<UserSettings> GetSettings()
+        {
+            var settings = new UserSettings();
+
+            var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("settings.json");
+
+            if (item != null)
+            {
+                var storageFile = await StorageFile.GetFileFromPathAsync(item.Path);
+
+                var rawJson = await FileIO.ReadTextAsync(storageFile);
+
+                var accounts = JsonConvert.DeserializeObject<UserSettings>(rawJson);
+
+                settings = accounts;
+            }
+
+            return settings;
+        }
+
+        public async Task SaveSettings(UserSettings userSettings)
+        {
+            try
+            {
+                var rawJson = JsonConvert.SerializeObject(userSettings);
+
+                var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("settings.json");
+
+                var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("settings.json", CreationCollisionOption.OpenIfExists);
+
+                await FileIO.WriteTextAsync(accountsFile, rawJson);
+            }
+            catch (Exception ex)
+            {
+                // do something
+            }
+        } 
+
         public async Task<List<AzureStorageAccount>> GetStorageAccounts()
         {
             var list = new List<AzureStorageAccount>();

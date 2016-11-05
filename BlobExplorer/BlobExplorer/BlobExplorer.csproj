@@ -113,6 +113,7 @@
     <Compile Include="Model\AzureStorageAccount.cs" />
     <Compile Include="Model\AzureStorageBlob.cs" />
     <Compile Include="Model\AzureStorageContainer.cs" />
+    <Compile Include="Model\UserSettings.cs" />
     <Compile Include="Navigation\BlobDetailNavigationContext.cs" />
     <Compile Include="Navigation\BlobListNavigationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Compile Include="ViewModel\NewStorageAccountViewModel.cs" />
+    <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="Views\BlobDetailView.xaml.cs">
       <DependentUpon>BlobDetailView.xaml</DependentUpon>
     </Compile>

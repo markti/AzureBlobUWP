@@ -8,5 +8,12 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
+            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                <TextBlock Text="Group Directories" />
+                <CheckBox IsChecked="{Binding Path=UserSettings.ShouldGroupDirectories, Mode=TwoWay}" />
+            </StackPanel>
+            <Button Content="Save" Click="Button_Click" Margin="0,16,0,0" />
+        </StackPanel>
     </Grid>
 </Page>

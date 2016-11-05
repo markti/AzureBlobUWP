@@ -1,4 +1,5 @@
 ﻿using BlobExplorer.Events;
+using BlobExplorer.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -24,16 +25,28 @@ namespace BlobExplorer.Views
     /// </summary>
     public sealed partial class SettingsView : Page
     {
+        SettingsViewModel viewModel;
+
         public SettingsView()
         {
             this.InitializeComponent();
+
+            this.viewModel = new SettingsViewModel();
+            this.DataContext = viewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
+            viewModel.OnNavigatedTo();
+
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Settings" });
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.Save();
         }
     }
 }
