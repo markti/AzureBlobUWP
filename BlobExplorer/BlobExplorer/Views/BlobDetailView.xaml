@@ -1,0 +1,132 @@
+﻿<Page
+    x:Class="BlobExplorer.Views.BlobDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BlobExplorer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot>
+            <PivotItem Header="General">
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <controls:HeaderedTextBlock 
+                            Header="Name"
+                            Text="{Binding Name}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Last Modified"
+                            Text="{Binding LastModified}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Length"
+                            Text="{Binding LengthDescription}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Parent"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Container"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Blob Type"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="URI"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="ETag"
+                            Text="{Binding BlobType}"
+                            />
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="Content">
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <controls:HeaderedTextBlock 
+                            Header="Cache Control"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Content Disposition"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Content Encoding"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Content Language"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Content MD5"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Content Type"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Stream Minimum Read Size In Bytes"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Stream Write Size In Bytes"
+                            Text="{Binding BlobType}"
+                            />
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="Lease">
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <controls:HeaderedTextBlock 
+                            Header="Lease Duration"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Lease State"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Lease Status"
+                            Text="{Binding BlobType}"
+                            />
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="Snapshot">
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <controls:HeaderedTextBlock 
+                            Header="Is Snapshot?"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Snapshot Qualified Storage URI"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Snapshot Qualified URI"
+                            Text="{Binding BlobType}"
+                            />
+                        <controls:HeaderedTextBlock 
+                            Header="Snapshot Time"
+                            Text="{Binding BlobType}"
+                            />
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

@@ -80,8 +80,11 @@ namespace BlobExplorer
                     newBlobItem.Name = fileName;
                     newBlobItem.Path = blobItem.Name;
                     newBlobItem.IsDirectory = false;
-                    newBlobItem.SizeInBytes = blobItem.StreamWriteSizeInBytes;
+                    newBlobItem.LengthInBytes = blobItem.StreamWriteSizeInBytes;
                     newBlobItem.Uri = blobItem.Uri;
+
+                    var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobItem.Uri);
+                    
                 }
 
                 list.Add(newBlobItem);
@@ -94,6 +97,22 @@ namespace BlobExplorer
         {
             var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobUri);
             blobRef.DownloadToFileAsync(targetFile);
+        }
+
+        public async Task<AzureStorageBlob> GetBlobDetail(AzureStorageBlob blob)
+        {
+            var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blob.Uri);
+
+            var fullDetailBlob = new AzureStorageBlob();
+
+            fullDetailBlob.BlobType = blobRef.BlobType.ToString();
+            fullDetailBlob.Name = blobRef.Name;
+            //fullDetailBlob.LastModified = blobRef.Properties.LastModified.Value;
+            fullDetailBlob.LengthInBytes = blobRef.Properties.Length;
+            fullDetailBlob.Parent = blobRef.Parent.Parent.Prefix;
+            fullDetailBlob.Container = blobRef.Container.Name;
+
+            return fullDetailBlob;
         }
     }
 }

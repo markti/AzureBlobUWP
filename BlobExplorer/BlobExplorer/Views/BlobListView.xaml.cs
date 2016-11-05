@@ -78,7 +78,12 @@ namespace BlobExplorer.Views
             }
             else
             {
-                // not sure what to do...maybe download?
+                var context = new BlobDetailNavigationContext();
+                context.Account = viewModel.StorageAccount;
+                context.Blob = item;
+                context.Container = viewModel.Container;
+
+                this.Frame.Navigate(typeof(BlobDetailView), context);
             }
         }
 
