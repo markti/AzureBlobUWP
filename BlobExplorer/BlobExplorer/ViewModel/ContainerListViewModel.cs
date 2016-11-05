@@ -1,5 +1,7 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +28,8 @@ namespace BlobExplorer.ViewModel
         public void OnNavigatedTo(NavigationEventArgs e)
         {
             this.StorageAccount = e.Parameter as AzureStorageAccount;
+
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = this.StorageAccount.Name });
             InitializeClient();
             RefreshContainers();
         }

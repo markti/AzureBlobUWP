@@ -33,6 +33,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Home" });
             Messenger.Default.Send<SelectionClearedEvent>(new SelectionClearedEvent());
         }
     }

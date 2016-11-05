@@ -104,6 +104,7 @@
     <Compile Include="Common\FileSizeProvider.cs" />
     <Compile Include="Events\AccountCreatedEvent.cs" />
     <Compile Include="Events\AccountDeletedEvent.cs" />
+    <Compile Include="Events\PageTitleChangedEvent.cs" />
     <Compile Include="Events\SelectionClearedEvent.cs" />
     <Compile Include="LocalStorageService.cs" />
     <Compile Include="MainPage.xaml.cs">

@@ -1,4 +1,6 @@
-﻿using BlobExplorer.ViewModel;
+﻿using BlobExplorer.Events;
+using BlobExplorer.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +33,13 @@ namespace BlobExplorer.Views
 
             viewModel = new NewStorageAccountViewModel();
             this.DataContext = viewModel;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Add Storage Account" });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

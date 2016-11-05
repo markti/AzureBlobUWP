@@ -1,6 +1,7 @@
 ﻿using BlobExplorer.Events;
 using BlobExplorer.Model;
 using BlobExplorer.Views;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,15 @@ using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
 {
-    public class MainViewModel
+    public class MainViewModel : ViewModelBase
     {
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set { title = value; RaisePropertyChanged(); }
+        }
+
         public ObservableCollection<AzureStorageAccount> Accounts { get; private set; }
         public ObservableCollection<MenuItemViewModel> Options { get; private set; }
 
@@ -34,6 +42,12 @@ namespace BlobExplorer.ViewModel
         {
             Messenger.Default.Register<AccountCreatedEvent>(this, HandleAccountCreatedEvent);
             Messenger.Default.Register<AccountDeletedEvent>(this, HandleAccountDeletedEvent);
+            Messenger.Default.Register<PageTitleChangedEvent>(this, HandlePageTitleChangedEvent);
+        }
+
+        private void HandlePageTitleChangedEvent(PageTitleChangedEvent payload)
+        {
+            this.Title = payload.Title;
         }
 
         private void HandleAccountDeletedEvent(AccountDeletedEvent obj)

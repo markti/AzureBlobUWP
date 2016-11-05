@@ -73,7 +73,23 @@
             ItemsSource="{Binding Accounts}"
             OptionsItemsSource="{Binding Options}"
             >
-            <Frame x:Name="ContentFrame" Foreground="Black" Navigated="ContentFrame_Navigated" />
+            <Grid Background="#fff2f2f2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="24,0,0,0" Foreground="Black" />
+                </Border>
+
+                <Frame 
+                    x:Name="ContentFrame" 
+                    Foreground="Black"
+                    Grid.Row="1"
+                    Navigated="ContentFrame_Navigated" 
+                    />
+            </Grid>
         </controls:HamburgerMenu>
     </Grid>
 </Page>
