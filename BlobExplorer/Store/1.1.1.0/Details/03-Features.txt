@@ -5,3 +5,5 @@ Browse your containers and blob folder hierarchy
 Download files stored on Blob Storage
 
 View details of your blobs
+
+Create & Delete Containers

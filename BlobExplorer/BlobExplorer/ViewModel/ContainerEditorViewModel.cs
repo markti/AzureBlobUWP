@@ -9,6 +9,7 @@ using BlobExplorer.Model;
 using BlobExplorer.Events;
 using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace BlobExplorer.ViewModel
 {
@@ -25,19 +26,20 @@ namespace BlobExplorer.ViewModel
             set { currentContainer = value; RaisePropertyChanged(); }
         }
         public ObservableCollection<ContainerAccessLevel> AccessLevels { get; private set; }
-        private ContainerAccessLevel selectedAccessLevel;
-        public ContainerAccessLevel SelectedAccessLevel
-        {
-            get { return selectedAccessLevel; }
-            set { selectedAccessLevel = value; this.RaisePropertyChanged(); }
-        }
+
         private bool canSave;
         public bool CanSave
         {
             get { return canSave; }
             set { canSave = value; RaisePropertyChanged(); }
         }
-
+        private bool canEditName;
+        public bool CanEditName
+        {
+            get { return canEditName; }
+            set { canEditName = value; this.RaisePropertyChanged(); }
+        }
+        public bool IsNew { get; set; }
         public AzureStorageAccount StorageAccount { get; set; }
 
 
@@ -49,9 +51,9 @@ namespace BlobExplorer.ViewModel
 
         private void InitializeAccessLevels()
         {
-            publicContainerAccess = new ContainerAccessLevel() { Label = "Public Container", Description = "Anonymous clients can read blob and container content/metadata." };
-            publicBlobAccess = new ContainerAccessLevel() { Label = "Public Blob", Description = "Anonymous clients can read blob content/metadata but no container listings are accessible." };
-            privateAccess = new ContainerAccessLevel() { Label = "Off", Description = "No anonymous access. Only the account owner can access resources in this container." };
+            publicContainerAccess = new ContainerAccessLevel() { Label = "Public Container", Description = "Anonymous clients can read blob and container content/metadata.", Code = BlobContainerPublicAccessType.Container };
+            publicBlobAccess = new ContainerAccessLevel() { Label = "Public Blob", Description = "Anonymous clients can read blob content/metadata but no container listings are accessible.", Code = BlobContainerPublicAccessType.Blob };
+            privateAccess = new ContainerAccessLevel() { Label = "Off", Description = "No anonymous access. Only the account owner can access resources in this container.", Code = BlobContainerPublicAccessType.Off };
 
             this.AccessLevels.Add(publicContainerAccess);
             this.AccessLevels.Add(publicBlobAccess);
@@ -65,18 +67,24 @@ namespace BlobExplorer.ViewModel
             // then initialize the client
             InitializeClient();
 
-            if (context.IsNew)
+            this.IsNew = context.IsNew;
+            if (this.IsNew)
             {
                 this.CurrentContainer = new AzureStorageContainer();
                 Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Creating New Container" });
                 // make sure we reset this on new containers
-                this.SelectedAccessLevel = privateAccess;
+                this.CurrentContainer.AccessLevel = privateAccess;
+                this.CanEditName = true;
             }
             else
             {
                 this.CurrentContainer = context.Container;
                 Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = this.CurrentContainer.Name });
                 // TODO: find the right access level from the container's internal value
+                var existingMatch = this.AccessLevels.Where(f => f.Code == this.CurrentContainer.AccessLevel.Code).FirstOrDefault();
+                this.CurrentContainer.AccessLevel = existingMatch;
+                this.CanEditName = false;
+                Validate();
             }
             // turn on validation monitoring
             this.CurrentContainer.PropertyChanged += (s, e) => { Validate(); };
@@ -89,12 +97,22 @@ namespace BlobExplorer.ViewModel
 
         private void Validate()
         {
-            this.CanSave = CurrentContainer.Name.Length > 0 && this.SelectedAccessLevel != null;
+            this.CanSave = CurrentContainer.Name.Length > 0 && this.CurrentContainer.AccessLevel != null;
         }
 
         public async Task<bool> Save()
         {
-            var result = await client.CreateContainer(this.CurrentContainer);
+            var result = false;
+            if(this.IsNew)
+            {
+                result = await client.CreateContainer(this.CurrentContainer);
+            }
+            else
+            {
+                await client.ChangeAccessLevel(this.CurrentContainer);
+                // if it returns then we're good
+                result = true;
+            }
             return result;
         }
     }

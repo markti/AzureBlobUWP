@@ -41,6 +41,9 @@ namespace BlobExplorer
                 var container = new AzureStorageContainer();
                 container.Name = item.Name;
 
+                var accessLevel = await GetAccessLevel(container);
+                container.AccessLevel = new ContainerAccessLevel() { Code = accessLevel };
+
                 list.Add(container);
             }
 
@@ -159,6 +162,20 @@ namespace BlobExplorer
             var containerRef = blobClient.GetContainerReference(container.Name);
             var opResult = await containerRef.DeleteIfExistsAsync();
             return opResult;
+        }
+        public async Task<BlobContainerPublicAccessType> GetAccessLevel(AzureStorageContainer container)
+        {
+            var containerRef = blobClient.GetContainerReference(container.Name);
+            var perms = await containerRef.GetPermissionsAsync();
+            return perms.PublicAccess;
+        }
+
+        public async Task ChangeAccessLevel(AzureStorageContainer container)
+        {            
+            var containerRef = blobClient.GetContainerReference(container.Name);
+            var perms = await containerRef.GetPermissionsAsync();
+            perms.PublicAccess = container.AccessLevel.Code;
+            await containerRef.SetPermissionsAsync(perms);
         }
     }
 }

@@ -118,5 +118,15 @@ namespace BlobExplorer.Views
                 viewModel.SelectedContainers.Add(typedItem);
             }
         }
+
+        private void OnEditContainerClick(object sender, RoutedEventArgs e)
+        {
+            var context = new ContainerEditorNavigationContext();
+            context.Account = viewModel.StorageAccount;
+            context.Container = viewModel.SelectedContainers.FirstOrDefault();
+            context.IsNew = false;
+
+            this.Frame.Navigate(typeof(ContainerEditorView), context);
+        }
     }
 }

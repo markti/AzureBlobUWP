@@ -7,9 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:BlobExplorer.Converters"
     >
     <Page.Resources>
 
+        <converters:AccessLevelToColorConverter x:Key="AccessLevelConverter" />
+        
         <Style x:Key="AccessLevelHeaderTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="12" />
             <Setter Property="FontWeight" Value="Bold" />
@@ -20,13 +23,28 @@
         </Style>
         
         <DataTemplate x:Key="AccessLevelItemTemplate">
-            <controls:HeaderedTextBlock 
-                FontSize="10"
-                Header="{Binding Label}" 
-                Text="{Binding Description}" 
-                HeaderStyle="{StaticResource AccessLevelHeaderTextBlockStyle}"
-                TextStyle="{StaticResource AccessLevelTextBlockStyle}"
-                />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle 
+                    Grid.Column="0"
+                    Fill="{Binding Path=Code, Converter={StaticResource AccessLevelConverter}}" 
+                    Width="15" Height="15" 
+                    Margin="8"
+                    />
+
+                <controls:HeaderedTextBlock 
+                    Grid.Column="1"
+                    FontSize="10"
+                    Header="{Binding Label}" 
+                    Text="{Binding Description}" 
+                    HeaderStyle="{StaticResource AccessLevelHeaderTextBlockStyle}"
+                    TextStyle="{StaticResource AccessLevelTextBlockStyle}"
+                    />
+            </Grid>
         </DataTemplate>
     </Page.Resources>
     
@@ -35,13 +53,13 @@
             <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="16,0,0,0">
                     <TextBlock Text="Container Name" />
-                    <TextBox Text="{Binding Path=CurrentContainer.Name, Mode=TwoWay}" />
+                    <TextBox Text="{Binding Path=CurrentContainer.Name, Mode=TwoWay}" IsEnabled="{Binding CanEditName}" />
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="16,16,0,0">
                     <TextBlock Text="Access Level" />
                     <ComboBox 
                         ItemsSource="{Binding Path=AccessLevels}" 
-                        SelectedItem="{Binding Path=SelectedAccessLevel, Mode=TwoWay}" 
+                        SelectedItem="{Binding Path=CurrentContainer.AccessLevel, Mode=TwoWay}" 
                         ItemTemplate="{StaticResource AccessLevelItemTemplate}"
                         />
                 </StackPanel>

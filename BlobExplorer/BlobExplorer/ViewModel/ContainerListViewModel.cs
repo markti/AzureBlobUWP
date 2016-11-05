@@ -25,12 +25,26 @@ namespace BlobExplorer.ViewModel
             get { return canDeleteContainers; }
             set { canDeleteContainers = value; this.RaisePropertyChanged(); }
         }
+        private bool canEditContainer;
+        public bool CanEditContainer
+        {
+            get { return canEditContainer; }
+            set { canEditContainer = value; this.RaisePropertyChanged(); }
+        }
+
 
         public ContainerListViewModel()
         {
             this.localStorage = new LocalStorageService();
             this.Containers = new ObservableCollection<AzureStorageContainer>();
             this.SelectedContainers = new ObservableCollection<AzureStorageContainer>();
+            this.SelectedContainers.CollectionChanged += SelectedContainers_CollectionChanged;
+        }
+
+        private void SelectedContainers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.CanEditContainer = this.SelectedContainers.Count == 1;
+            this.CanDeleteContainers = this.SelectedContainers.Count > 0;
         }
 
         public void OnNavigatedTo(NavigationEventArgs e)

@@ -6,11 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:converters="using:BlobExplorer.Converters"
     >
     <Page.Resources>
+
+        <converters:AccessLevelToColorConverter x:Key="AccessLevelConverter" />
+
         <DataTemplate x:Key="ContainerItemTemplate">
             <Grid Width="250" Height="125">
                 <TextBlock Margin="16" Text="{Binding Name}" />
+                <Rectangle Fill="{Binding Path=AccessLevel.Code, Converter={StaticResource AccessLevelConverter}}" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="16" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -28,6 +33,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Add" Label="New Container" Click="OnCreateContainerClick" />
+            <AppBarButton Icon="Edit" Label="Edit Container" Click="OnEditContainerClick" IsEnabled="{Binding CanEditContainer}" />
             <AppBarButton Icon="Refresh" Label="Refresh" Click="OnRefreshButtonClick" />
             <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteContainersClick" IsEnabled="{Binding CanDeletedContainers}" />
             <CommandBar.SecondaryCommands>
