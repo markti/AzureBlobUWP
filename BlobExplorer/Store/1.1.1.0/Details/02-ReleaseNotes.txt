@@ -1,0 +1,3 @@
+Version 1.1.0.1
+ - Small aesthetic changes
+ - Added Blob Details Page
