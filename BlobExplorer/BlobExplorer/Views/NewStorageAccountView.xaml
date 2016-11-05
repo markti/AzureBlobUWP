@@ -8,16 +8,23 @@
     mc:Ignorable="d"
     >
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
-            <StackPanel Orientation="Vertical" Margin="16,0,0,0">
-                <TextBlock Text="Account Name" />
-                <TextBox Text="{Binding Path=CurrentAccount.Name, Mode=TwoWay}" />
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical" Margin="16,0,0,0">
+                    <TextBlock Text="Account Name" />
+                    <TextBox Text="{Binding Path=CurrentAccount.Name, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="16,16,0,0">
+                    <TextBlock Text="Account Key" />
+                    <TextBox Text="{Binding Path=CurrentAccount.Key, Mode=TwoWay}" />
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="16,16,0,0">
-                <TextBlock Text="Account Key" />
-                <TextBox Text="{Binding Path=CurrentAccount.Key, Mode=TwoWay}" />
-            </StackPanel>
-            <Button Content="Save" Click="Button_Click" Margin="16,16,0,0" />
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Save" Label="Save" Click="OnSaveClick" />
+            <AppBarButton Icon="Cancel" Label="Cancel" Click="OnCancelClick" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

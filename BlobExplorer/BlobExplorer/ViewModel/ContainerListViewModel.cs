@@ -18,11 +18,19 @@ namespace BlobExplorer.ViewModel
         private AzureStorageClient client;
         public AzureStorageAccount StorageAccount { get; set; }
         public ObservableCollection<AzureStorageContainer> Containers { get; private set; }
+        public ObservableCollection<AzureStorageContainer> SelectedContainers { get; private set; }
+        private bool canDeleteContainers;
+        public bool CanDeleteContainers
+        {
+            get { return canDeleteContainers; }
+            set { canDeleteContainers = value; this.RaisePropertyChanged(); }
+        }
 
         public ContainerListViewModel()
         {
             this.localStorage = new LocalStorageService();
             this.Containers = new ObservableCollection<AzureStorageContainer>();
+            this.SelectedContainers = new ObservableCollection<AzureStorageContainer>();
         }
 
         public void OnNavigatedTo(NavigationEventArgs e)
@@ -49,7 +57,7 @@ namespace BlobExplorer.ViewModel
             }
         }
 
-        internal void DeleteStorageAccount()
+        internal void RemoveStorageAccount()
         {
             this.localStorage.RemoveStorageAccount(this.StorageAccount);
         }
@@ -57,6 +65,15 @@ namespace BlobExplorer.ViewModel
         internal void Refresh()
         {
             this.RefreshContainers();
+        }
+
+        public async Task DeleteSelectedContainers()
+        {
+            foreach(var item in this.SelectedContainers)
+            {
+                await client.DeleteContainer(item);
+            }
+            await this.RefreshContainers();
         }
     }
 }

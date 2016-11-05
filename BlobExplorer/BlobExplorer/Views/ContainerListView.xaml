@@ -16,17 +16,23 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView
+            x:Name="ContainerListGridView"
             ItemTemplate="{StaticResource ContainerItemTemplate}"
             ItemsSource="{Binding Containers}" 
             DoubleTapped="GridView_DoubleTapped"
-            SelectionMode="Multiple"
+            SelectionMode="Multiple" 
+            SelectionChanged="GridView_SelectionChanged"
             />
     </Grid>
     
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click_1" />
-            <AppBarButton Icon="Delete" Label="Delete" Click="AppBarButton_Click" />
+            <AppBarButton Icon="Add" Label="New Container" Click="OnCreateContainerClick" />
+            <AppBarButton Icon="Refresh" Label="Refresh" Click="OnRefreshButtonClick" />
+            <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteContainersClick" IsEnabled="{Binding CanDeletedContainers}" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Remove" Label="Remove Storage Account" Click="OnRemoveStorageAccountClick" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

@@ -1,12 +1,10 @@
-﻿using BlobExplorer.Events;
+﻿using BlobExplorer.Navigation;
 using BlobExplorer.ViewModel;
-using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,29 +22,35 @@ namespace BlobExplorer.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NewStorageAccountView : Page
+    public sealed partial class ContainerEditorView : Page
     {
-        NewStorageAccountViewModel viewModel;
+        ContainerEditorViewModel viewModel;
 
-        public NewStorageAccountView()
+        public ContainerEditorView()
         {
             this.InitializeComponent();
 
-            viewModel = new NewStorageAccountViewModel();
+            this.viewModel = new ContainerEditorViewModel();
             this.DataContext = viewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Add Storage Account" });
+            viewModel.OnNavigatedTo(e.Parameter as ContainerEditorNavigationContext);
         }
 
         private async void OnSaveClick(object sender, RoutedEventArgs e)
         {
-            await viewModel.Save();
-            this.Frame.GoBack();
+            var result = await viewModel.Save();
+            if (result)
+            {
+                this.Frame.GoBack();
+            }
+            else
+            {
+                // something broke
+            }
         }
 
         private void OnCancelClick(object sender, RoutedEventArgs e)

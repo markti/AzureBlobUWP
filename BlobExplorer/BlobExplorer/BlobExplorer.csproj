@@ -113,14 +113,17 @@
     <Compile Include="Model\AzureStorageAccount.cs" />
     <Compile Include="Model\AzureStorageBlob.cs" />
     <Compile Include="Model\AzureStorageContainer.cs" />
+    <Compile Include="Model\ContainerAccessLevel.cs" />
     <Compile Include="Model\UserSettings.cs" />
     <Compile Include="Navigation\BlobDetailNavigationContext.cs" />
     <Compile Include="Navigation\BlobListNavigationContext.cs" />
+    <Compile Include="Navigation\ContainerEditorNavigationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selectors\BlobItemPreviewTemplateSelector.cs" />
     <Compile Include="Selectors\BlobItemTemplateSelector.cs" />
     <Compile Include="ViewModel\BlobDetailViewModel.cs" />
     <Compile Include="ViewModel\BlobListViewModel.cs" />
+    <Compile Include="ViewModel\ContainerEditorViewModel.cs" />
     <Compile Include="ViewModel\ContainerListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
@@ -131,6 +134,9 @@
     </Compile>
     <Compile Include="Views\BlobListView.xaml.cs">
       <DependentUpon>BlobListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContainerEditorView.xaml.cs">
+      <DependentUpon>ContainerEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ContainerListView.xaml.cs">
       <DependentUpon>ContainerListView.xaml</DependentUpon>
@@ -176,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BlobListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContainerEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

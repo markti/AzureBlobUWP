@@ -146,5 +146,19 @@ namespace BlobExplorer
 
             return fullDetailBlob;
         }
+
+        public async Task<bool> CreateContainer(AzureStorageContainer container)
+        {
+            var containerRef = blobClient.GetContainerReference(container.Name);
+            var opResult = await containerRef.CreateIfNotExistsAsync();
+            return opResult;
+        }
+
+        public async Task<bool> DeleteContainer(AzureStorageContainer container)
+        {
+            var containerRef = blobClient.GetContainerReference(container.Name);
+            var opResult = await containerRef.DeleteIfExistsAsync();
+            return opResult;
+        }
     }
 }
