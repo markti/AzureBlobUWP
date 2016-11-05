@@ -16,35 +16,35 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <controls:HeaderedTextBlock 
                             Header="Name"
-                            Text="{Binding Name}"
+                            Text="{Binding Path=Blob.Name}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Last Modified"
-                            Text="{Binding LastModified}"
+                            Text="{Binding Path=Blob.LastModified}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Length"
-                            Text="{Binding LengthDescription}"
+                            Text="{Binding Path=Blob.LengthDescription}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Parent"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.Parent}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Container"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.Container}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Blob Type"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.BlobType}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="URI"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.Uri}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="ETag"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.ETag}"
                             />
                     </StackPanel>
                 </ScrollViewer>
@@ -54,35 +54,35 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <controls:HeaderedTextBlock 
                             Header="Cache Control"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.CacheControl}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Content Disposition"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.ContentDisposition}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Content Encoding"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.ContentEncoding}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Content Language"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.ContentLanguage}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Content MD5"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.ContentMD5}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Content Type"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.ContentType}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Stream Minimum Read Size In Bytes"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.StreamMinimumReadSizeInBytes}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Stream Write Size In Bytes"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.StreamWriteSizeInBytes}"
                             />
                     </StackPanel>
                 </ScrollViewer>
@@ -92,15 +92,15 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <controls:HeaderedTextBlock 
                             Header="Lease Duration"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.LeaseDuration}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Lease State"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.LeaseState}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Lease Status"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.LeaseStatus}"
                             />
                     </StackPanel>
                 </ScrollViewer>
@@ -110,19 +110,19 @@
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <controls:HeaderedTextBlock 
                             Header="Is Snapshot?"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.IsSnapshot}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Snapshot Qualified Storage URI"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.SnapshotQualifiedStorageUri}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Snapshot Qualified URI"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.SnapshotQualifiedUri}"
                             />
                         <controls:HeaderedTextBlock 
                             Header="Snapshot Time"
-                            Text="{Binding BlobType}"
+                            Text="{Binding Path=Blob.SnapshotTime}"
                             />
                     </StackPanel>
                 </ScrollViewer>

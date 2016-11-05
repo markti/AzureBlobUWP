@@ -107,10 +107,33 @@ namespace BlobExplorer
 
             fullDetailBlob.BlobType = blobRef.BlobType.ToString();
             fullDetailBlob.Name = blobRef.Name;
-            //fullDetailBlob.LastModified = blobRef.Properties.LastModified.Value;
+            fullDetailBlob.LastModified = blobRef.Properties.LastModified.Value.UtcDateTime;
             fullDetailBlob.LengthInBytes = blobRef.Properties.Length;
-            fullDetailBlob.Parent = blobRef.Parent.Parent.Prefix;
+            fullDetailBlob.Parent = blobRef.Parent.Prefix;
             fullDetailBlob.Container = blobRef.Container.Name;
+            fullDetailBlob.ETag = blobRef.Properties.ETag;
+            fullDetailBlob.Uri = blobRef.Uri;
+            // content
+            fullDetailBlob.StreamMinimumReadSizeInBytes = blobRef.StreamMinimumReadSizeInBytes;
+            fullDetailBlob.StreamWriteSizeInBytes = blobRef.StreamWriteSizeInBytes;
+            fullDetailBlob.CacheControl = blobRef.Properties.CacheControl;
+            fullDetailBlob.ContentDisposition = blobRef.Properties.ContentDisposition;
+            fullDetailBlob.ContentEncoding = blobRef.Properties.ContentEncoding;
+            fullDetailBlob.ContentLanguage = blobRef.Properties.ContentLanguage;
+            fullDetailBlob.ContentMD5 = blobRef.Properties.ContentMD5;
+            fullDetailBlob.ContentType = blobRef.Properties.ContentType;
+            // lease
+            fullDetailBlob.LeaseStatus = blobRef.Properties.LeaseStatus.ToString();
+            fullDetailBlob.LeaseState = blobRef.Properties.LeaseState.ToString();
+            fullDetailBlob.LeaseDuration = blobRef.Properties.LeaseDuration.ToString();
+            // snapshot
+            fullDetailBlob.IsSnapshot = blobRef.IsSnapshot;
+            if(blobRef.SnapshotTime.HasValue)
+            {
+                fullDetailBlob.SnapshotTime = blobRef.SnapshotTime.Value.UtcDateTime;
+            }
+            fullDetailBlob.SnapshotQualifiedStorageUri = blobRef.SnapshotQualifiedStorageUri.PrimaryUri;
+            fullDetailBlob.SnapshotQualifiedUri = blobRef.SnapshotQualifiedUri;
 
             return fullDetailBlob;
         }

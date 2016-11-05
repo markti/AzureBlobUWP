@@ -1,6 +1,8 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
 using BlobExplorer.Navigation;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,6 +49,7 @@ namespace BlobExplorer.ViewModel
             this.StorageAccount = context.Account;
             this.Container = context.Container;
             this.prefix = context.BlobPrefix;
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = this.Container.Name });
             InitializeClient();
             RefreshBlobs();
         }

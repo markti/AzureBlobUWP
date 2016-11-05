@@ -1,5 +1,8 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
 using BlobExplorer.Navigation;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +11,17 @@ using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
 {
-    public class BlobDetailViewModel
+    public class BlobDetailViewModel : ViewModelBase
     {
         private AzureStorageClient client;
         public AzureStorageAccount StorageAccount { get; set; }
         public AzureStorageContainer Container { get; set; }
-        public AzureStorageBlob Blob { get; set; }
-
+        AzureStorageBlob blob;
+        public AzureStorageBlob Blob
+        {
+            get { return blob; }
+            set { blob = value;  RaisePropertyChanged(); }
+        }
 
         internal void OnNavigatedTo(BlobDetailNavigationContext context)
         {
@@ -38,7 +45,9 @@ namespace BlobExplorer.ViewModel
         }
         public async Task Refresh()
         {
-            var fullDetail = client.GetBlobDetail(this.Blob);
+            var fullDetail = await client.GetBlobDetail(this.Blob);
+            this.Blob = fullDetail;
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = this.Blob.Name });
         }
     }
 }
