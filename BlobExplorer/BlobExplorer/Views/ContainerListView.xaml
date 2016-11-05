@@ -14,12 +14,6 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click_1" />
-            <AppBarButton Icon="Delete" Label="Delete" Click="AppBarButton_Click" />
-        </CommandBar>
-    </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView
             ItemTemplate="{StaticResource ContainerItemTemplate}"
@@ -28,4 +22,11 @@
             SelectionMode="Multiple"
             />
     </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Refresh" Label="Refresh" Click="AppBarButton_Click_1" />
+            <AppBarButton Icon="Delete" Label="Delete" Click="AppBarButton_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

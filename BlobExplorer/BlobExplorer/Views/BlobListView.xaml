@@ -29,12 +29,6 @@
             />
         
     </Page.Resources>
-
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="Download" Icon="Download" Click="AppBarButton_Click" IsEnabled="{Binding CanDownload}" />
-        </CommandBar>
-    </Page.BottomAppBar>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView
@@ -47,4 +41,10 @@
             SelectionChanged="GridView_SelectionChanged"
             />
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Download" Icon="Download" Click="AppBarButton_Click" IsEnabled="{Binding CanDownload}" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
