@@ -4,9 +4,11 @@ using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace BlobExplorer.ViewModel
 {
@@ -18,18 +20,26 @@ namespace BlobExplorer.ViewModel
         private string prefix;
 
         public ObservableCollection<AzureStorageBlob> Blobs { get; private set; }
-        private AzureStorageBlob selectedBlob;
+        public ObservableCollection<AzureStorageBlob> SelectedItems { get; set; }
+        private bool canDownloadItem;
 
-        public AzureStorageBlob SelectedBlob
+        public bool CanDownload
         {
-            get { return selectedBlob; }
-            set { selectedBlob = value; this.RaisePropertyChanged(); }
+            get { return canDownloadItem; }
+            set { canDownloadItem = value; RaisePropertyChanged(); }
         }
-
 
         public BlobListViewModel()
         {
             this.Blobs = new ObservableCollection<AzureStorageBlob>();
+            this.SelectedItems = new ObservableCollection<AzureStorageBlob>();
+            this.SelectedItems.CollectionChanged += SelectedItems_CollectionChanged;
+        }
+
+        private void SelectedItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var firstItem = SelectedItems.FirstOrDefault();
+            CanDownload = SelectedItems.Count == 1 && firstItem != null && !firstItem.IsDirectory;
         }
 
         public void OnNavigatedTo(BlobListNavigationContext context)
@@ -67,6 +77,12 @@ namespace BlobExplorer.ViewModel
             {
                 // do something
             }
+        }
+
+        public async Task SaveFile(StorageFile targetFile)
+        {
+            var firstItem = this.SelectedItems.FirstOrDefault();
+            client.DownloadBlob(targetFile, firstItem.Uri);
         }
     }
 }

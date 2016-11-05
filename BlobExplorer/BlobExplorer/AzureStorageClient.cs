@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Threading;
+using Windows.Storage;
 
 namespace BlobExplorer
 {
@@ -80,12 +81,19 @@ namespace BlobExplorer
                     newBlobItem.Path = blobItem.Name;
                     newBlobItem.IsDirectory = false;
                     newBlobItem.SizeInBytes = blobItem.StreamWriteSizeInBytes;
+                    newBlobItem.Uri = blobItem.Uri;
                 }
 
                 list.Add(newBlobItem);
             }
 
             return list;
+        }
+
+        public async Task DownloadBlob(StorageFile targetFile, Uri blobUri)
+        {
+            var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobUri);
+            blobRef.DownloadToFileAsync(targetFile);
         }
     }
 }

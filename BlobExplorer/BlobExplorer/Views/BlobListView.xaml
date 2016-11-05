@@ -29,6 +29,13 @@
             />
         
     </Page.Resources>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Download" Icon="Download" Click="AppBarButton_Click" IsEnabled="{Binding CanDownload}" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView
             x:Name="GridView"
@@ -36,7 +43,8 @@
             SelectionMode="Multiple"
             DoubleTapped="GridView_DoubleTapped"
             ItemTemplateSelector="{StaticResource BlobItemTemplateSelector}"
-            SelectedItem="{Binding Path=SelectedBlob, Mode=TwoWay}"
+            SelectedItem="{Binding Path=SelectedBlob, Mode=TwoWay}" 
+            SelectionChanged="GridView_SelectionChanged"
             />
     </Grid>
 </Page>

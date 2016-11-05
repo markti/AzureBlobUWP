@@ -29,5 +29,6 @@ namespace BlobExplorer.Model
             get { return string.Format(new FileSizeFormatProvider(), "{0:fs}", SizeInBytes); }
         }
 
+        public Uri Uri { get; internal set; }
     }
 }

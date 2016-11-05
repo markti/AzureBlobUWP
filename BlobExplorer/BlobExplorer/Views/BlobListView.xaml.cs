@@ -6,8 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -56,8 +59,6 @@ namespace BlobExplorer.Views
             }
             else
             {
-                // not sure what to do...maybe download?
-                viewModel.SelectedBlob = item;
             }
         }
 
@@ -79,6 +80,33 @@ namespace BlobExplorer.Views
             {
                 // not sure what to do...maybe download?
             }
+        }
+
+        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            await DoDownload();
+        }
+
+        private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            viewModel.SelectedItems.Clear();
+            foreach(var item in GridView.SelectedItems)
+            {
+                var typedItem = item as AzureStorageBlob;
+                viewModel.SelectedItems.Add(typedItem);
+            }
+        }
+
+        private async Task DoDownload()
+        {
+            var firstItem = viewModel.SelectedItems.FirstOrDefault();
+
+            var savePicker = new FileSavePicker();
+            savePicker.SuggestedFileName = firstItem.Name;
+            savePicker.FileTypeChoices.Add("all files", new List<string> { ".avi" });
+
+            var targetFile = await savePicker.PickSaveFileAsync();
+            await viewModel.SaveFile(targetFile);
         }
     }
 }
