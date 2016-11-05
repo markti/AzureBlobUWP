@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="01117512-91aa-447d-ae19-085b758a365a" Publisher="CN=markt" Version="1.0.0.0" />
+  <Identity Name="SilverDollarSoftware.BlobStorageExplorer" Publisher="CN=CC2E9BF5-B1C4-4077-9FF1-01F226492AD9" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="01117512-91aa-447d-ae19-085b758a365a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>BlobExplorer</DisplayName>
-    <PublisherDisplayName>markt</PublisherDisplayName>
+    <DisplayName>Blob Storage Explorer</DisplayName>
+    <PublisherDisplayName>Silver Dollar Software</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

@@ -1,0 +1,1 @@
+C:\Users\markt\Source\Repos\AzureBlobUWP\BlobExplorer\BlobExplorer\AppPackages\BlobExplorer_1.1.0.0\BlobExplorer_1.1.0.0_x86_x64_arm.appxbundle

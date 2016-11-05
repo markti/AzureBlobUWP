@@ -5,6 +5,36 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobExplorer", "BlobExplorer\BlobExplorer.csproj", "{E0378D8A-BA03-49D4-AFC4-20A43F8ABB12}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submissions", "Submissions", "{FDA70D4A-BE21-4E6D-8A3D-79BF8885CD69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1.0.0", "1.1.0.0", "{5897FA4A-F047-4DE5-8285-D3E5CEC64896}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Details", "Details", "{5C38C822-DEE1-456B-9515-8CBA49BD60E3}"
+	ProjectSection(SolutionItems) = preProject
+		Store\1.1.0.0\Details\01-Description.txt = Store\1.1.0.0\Details\01-Description.txt
+		Store\1.1.0.0\Details\02-ReleaseNotes.txt = Store\1.1.0.0\Details\02-ReleaseNotes.txt
+		Store\1.1.0.0\Details\03-Features.txt = Store\1.1.0.0\Details\03-Features.txt
+		Store\1.1.0.0\Details\04-Keywords.txt = Store\1.1.0.0\Details\04-Keywords.txt
+		Store\1.1.0.0\Details\05-Copyright.txt = Store\1.1.0.0\Details\05-Copyright.txt
+		Store\1.1.0.0\Details\06-Website.txt = Store\1.1.0.0\Details\06-Website.txt
+		Store\1.1.0.0\Details\07-ContactInfo.txt = Store\1.1.0.0\Details\07-ContactInfo.txt
+		Store\1.1.0.0\Details\08-PrivacyPolicy.txt = Store\1.1.0.0\Details\08-PrivacyPolicy.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Icons", "Icons", "{F3740EF2-3150-48AA-8EF3-7F292DFD8184}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{7E32987D-9BD7-4D39-AF01-14454A7EFE59}"
+	ProjectSection(SolutionItems) = preProject
+		Store\1.1.0.0\Screenshots\Desktop\01.png = Store\1.1.0.0\Screenshots\Desktop\01.png
+		Store\1.1.0.0\Screenshots\Desktop\01.txt = Store\1.1.0.0\Screenshots\Desktop\01.txt
+		Store\1.1.0.0\Screenshots\Desktop\02.png = Store\1.1.0.0\Screenshots\Desktop\02.png
+		Store\1.1.0.0\Screenshots\Desktop\02.txt = Store\1.1.0.0\Screenshots\Desktop\02.txt
+		Store\1.1.0.0\Screenshots\Desktop\03.png = Store\1.1.0.0\Screenshots\Desktop\03.png
+		Store\1.1.0.0\Screenshots\Desktop\03.txt = Store\1.1.0.0\Screenshots\Desktop\03.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{A164E901-76DB-422A-B962-853007246CD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -36,5 +66,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5897FA4A-F047-4DE5-8285-D3E5CEC64896} = {FDA70D4A-BE21-4E6D-8A3D-79BF8885CD69}
+		{5C38C822-DEE1-456B-9515-8CBA49BD60E3} = {5897FA4A-F047-4DE5-8285-D3E5CEC64896}
+		{F3740EF2-3150-48AA-8EF3-7F292DFD8184} = {5897FA4A-F047-4DE5-8285-D3E5CEC64896}
+		{7E32987D-9BD7-4D39-AF01-14454A7EFE59} = {A164E901-76DB-422A-B962-853007246CD9}
+		{A164E901-76DB-422A-B962-853007246CD9} = {5897FA4A-F047-4DE5-8285-D3E5CEC64896}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,5 @@
+Setup multiple Azure Storage Accounts
+
+Browse your containers and blob folder hierarchy
+
+Download files stored on Blob Storage
