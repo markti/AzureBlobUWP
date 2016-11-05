@@ -34,14 +34,7 @@ namespace BlobExplorer.ViewModel
 
         private void InitializeClient()
         {
-            try
-            {
                 client = new AzureStorageClient(StorageAccount);
-            }
-            catch (Exception ex)
-            {
-                // do something
-            }
         }
         public async Task Refresh()
         {

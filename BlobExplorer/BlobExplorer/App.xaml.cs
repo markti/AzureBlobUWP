@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.HockeyApp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace BlobExplorer
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            HockeyClient.Current.Configure("a2ae58656ee942ea9d5960e6be8018bb ");
         }
 
         /// <summary>

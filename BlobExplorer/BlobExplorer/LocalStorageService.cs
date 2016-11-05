@@ -35,20 +35,13 @@ namespace BlobExplorer
 
         public async Task SaveSettings(UserSettings userSettings)
         {
-            try
-            {
-                var rawJson = JsonConvert.SerializeObject(userSettings);
+            var rawJson = JsonConvert.SerializeObject(userSettings);
 
-                var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("settings.json");
+            var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("settings.json");
 
-                var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("settings.json", CreationCollisionOption.OpenIfExists);
+            var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("settings.json", CreationCollisionOption.OpenIfExists);
 
-                await FileIO.WriteTextAsync(accountsFile, rawJson);
-            }
-            catch (Exception ex)
-            {
-                // do something
-            }
+            await FileIO.WriteTextAsync(accountsFile, rawJson);
         } 
 
         public async Task<List<AzureStorageAccount>> GetStorageAccounts()
@@ -105,20 +98,13 @@ namespace BlobExplorer
 
         private async Task SaveList(List<AzureStorageAccount> list)
         {
-            try
-            {
-                var rawJson = JsonConvert.SerializeObject(list);
+            var rawJson = JsonConvert.SerializeObject(list);
 
-                var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("accounts.json");
+            var item = await ApplicationData.Current.LocalFolder.TryGetItemAsync("accounts.json");
 
-                var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("accounts.json", CreationCollisionOption.OpenIfExists);
+            var accountsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("accounts.json", CreationCollisionOption.OpenIfExists);
 
-                await FileIO.WriteTextAsync(accountsFile, rawJson);
-            }
-            catch (Exception ex)
-            {
-                // do something
-            }
+            await FileIO.WriteTextAsync(accountsFile, rawJson);
         }
     }
 }

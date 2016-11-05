@@ -56,29 +56,15 @@ namespace BlobExplorer.ViewModel
 
         private void InitializeClient()
         {
-            try
-            {
-                client = new AzureStorageClient(StorageAccount);
-            }
-            catch (Exception ex)
-            {
-                // do something
-            }
+            client = new AzureStorageClient(StorageAccount);
         }
         private async Task RefreshBlobs()
         {
-            try
+            var blobs = await client.GetBlobs(Container.Name, prefix);
+            this.Blobs.Clear();
+            foreach (var item in blobs)
             {
-                var blobs = await client.GetBlobs(Container.Name, prefix);
-                this.Blobs.Clear();
-                foreach (var item in blobs)
-                {
-                    this.Blobs.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                // do something
+                this.Blobs.Add(item);
             }
         }
 

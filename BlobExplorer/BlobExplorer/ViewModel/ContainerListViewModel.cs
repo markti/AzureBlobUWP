@@ -36,30 +36,16 @@ namespace BlobExplorer.ViewModel
 
         private void InitializeClient()
         {
-            try
-            {
-                client = new AzureStorageClient(StorageAccount);
-            }
-            catch (Exception ex)
-            {
-                // do something
-            }
+            client = new AzureStorageClient(StorageAccount);
         }
 
         private async Task RefreshContainers()
         {
-            try
+            var containers = await client.GetContainers();
+            this.Containers.Clear();
+            foreach (var item in containers)
             {
-                var containers = await client.GetContainers();
-                this.Containers.Clear();
-                foreach (var item in containers)
-                {
-                    this.Containers.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                // do something
+                this.Containers.Add(item);
             }
         }
 
