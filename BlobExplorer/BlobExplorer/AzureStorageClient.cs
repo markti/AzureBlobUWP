@@ -93,6 +93,15 @@ namespace BlobExplorer
             return list;
         }
 
+        public async Task UploadBlob(StorageFile targetFile, string containerName, string prefix)
+        {
+            var container = blobClient.GetContainerReference(containerName);
+            var fullUrl = container.Uri.AbsolutePath + prefix + targetFile.Name;
+            var blobUri = new Uri(fullUrl);
+            var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobUri);
+            blobRef.UploadFromFileAsync(targetFile);
+        }
+
         public async Task DownloadBlob(StorageFile targetFile, Uri blobUri)
         {
             var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobUri);

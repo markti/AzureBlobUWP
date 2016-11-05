@@ -82,10 +82,15 @@ namespace BlobExplorer.ViewModel
             }
         }
 
-        public async Task SaveFile(StorageFile targetFile)
+        public async Task DownloadFile(StorageFile targetFile)
         {
             var firstItem = this.SelectedItems.FirstOrDefault();
             client.DownloadBlob(targetFile, firstItem.Uri);
+        }
+
+        public async Task UploadFile(StorageFile sourceFile)
+        {
+            client.UploadBlob(sourceFile, this.Container.Name, this.prefix);
         }
     }
 }

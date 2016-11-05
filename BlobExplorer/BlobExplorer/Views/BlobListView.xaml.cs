@@ -111,7 +111,22 @@ namespace BlobExplorer.Views
             savePicker.FileTypeChoices.Add("all files", new List<string> { ".avi" });
 
             var targetFile = await savePicker.PickSaveFileAsync();
-            await viewModel.SaveFile(targetFile);
+            await viewModel.DownloadFile(targetFile);
+        }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            DoUpload();
+        }
+
+        private async Task DoUpload()
+        {
+            var openPicker = new FileOpenPicker();
+            openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            openPicker.FileTypeFilter.Add(".jpg");
+
+            var sourceFile = await openPicker.PickSingleFileAsync();
+            await viewModel.UploadFile(sourceFile);
         }
     }
 }

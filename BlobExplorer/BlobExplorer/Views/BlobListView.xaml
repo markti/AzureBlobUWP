@@ -45,6 +45,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Download" Icon="Download" Click="AppBarButton_Click" IsEnabled="{Binding CanDownload}" />
+            <AppBarButton Label="Upload" Icon="Upload" Click="AppBarButton_Click_1" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
