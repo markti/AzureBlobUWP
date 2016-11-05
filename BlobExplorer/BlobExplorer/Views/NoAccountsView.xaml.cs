@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlobExplorer.Events;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +27,13 @@ namespace BlobExplorer.Views
         public NoAccountsView()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            Messenger.Default.Send<SelectionClearedEvent>(new SelectionClearedEvent());
         }
     }
 }

@@ -73,7 +73,7 @@
             ItemsSource="{Binding Accounts}"
             OptionsItemsSource="{Binding Options}"
             >
-            <Frame x:Name="ContentFrame" Foreground="Black" />
+            <Frame x:Name="ContentFrame" Foreground="Black" Navigated="ContentFrame_Navigated" />
         </controls:HamburgerMenu>
     </Grid>
 </Page>

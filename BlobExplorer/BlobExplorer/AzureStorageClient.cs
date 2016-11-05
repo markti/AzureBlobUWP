@@ -67,13 +67,17 @@ namespace BlobExplorer
                 if (item is CloudBlobDirectory)
                 {
                     var blobDir = item as CloudBlobDirectory;
-                    newBlobItem.Name = blobDir.Prefix;
+                    var folderName = blobDir.Prefix.Substring(prefix.Length, blobDir.Prefix.Length - prefix.Length);
+                    newBlobItem.Name = folderName.Replace("/", "");
+                    newBlobItem.Path = blobDir.Prefix;
                     newBlobItem.IsDirectory = true;
                 }
                 else if(item is ICloudBlob)
                 {
                     var blobItem = item as ICloudBlob;
-                    newBlobItem.Name = blobItem.Name;
+                    var fileName = blobItem.Name.Substring(prefix.Length, blobItem.Name.Length - prefix.Length);
+                    newBlobItem.Name = fileName;
+                    newBlobItem.Path = blobItem.Name;
                     newBlobItem.IsDirectory = false;
                 }
 

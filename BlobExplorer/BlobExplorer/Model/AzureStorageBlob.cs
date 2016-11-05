@@ -10,5 +10,6 @@ namespace BlobExplorer.Model
     {
         public bool IsDirectory { get; internal set; }
         public string Name { get; set; }
+        public string Path { get; internal set; }
     }
 }

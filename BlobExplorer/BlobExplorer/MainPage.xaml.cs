@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -37,6 +38,29 @@ namespace BlobExplorer
 
             Messenger.Default.Register<AccountCreatedEvent>(this, HandleAccountCreatedEvent);
             Messenger.Default.Register<AccountDeletedEvent>(this, HandleAccountDeletedEvent);
+            Messenger.Default.Register<SelectionClearedEvent>(this, HandleSelectionClearedEvent);
+
+            // Register a handler for BackRequested events and set the
+            // visibility of the Back button
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+            ContentFrame.Navigate(typeof(NoAccountsView));
+        }
+
+        private void HandleSelectionClearedEvent(SelectionClearedEvent obj)
+        {
+            if(this.HamburgerMenuControl != null)
+            {
+                try
+                {
+                    this.HamburgerMenuControl.SelectedOptionsItem = null;
+                    this.HamburgerMenuControl.SelectedItem = null;
+                }
+                catch (Exception ex)
+                {
+                    // do something
+                }
+            }
         }
 
         private void HandleAccountDeletedEvent(AccountDeletedEvent obj)
@@ -53,8 +77,6 @@ namespace BlobExplorer
         {
             // after we have saved a new account we should navigate away from the page
             ContentFrame.Navigate(typeof(NoAccountsView));
-            // this will clear the selection of the 'add new account' option
-            this.HamburgerMenuControl.SelectedOptionsItem = null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -73,6 +95,23 @@ namespace BlobExplorer
             if(item.PageType != null)
             {
                 ContentFrame.Navigate(item.PageType);
+            }
+        }
+
+        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ContentFrame.CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (ContentFrame.CanGoBack)
+            {
+                e.Handled = true;
+                ContentFrame.GoBack();
             }
         }
     }

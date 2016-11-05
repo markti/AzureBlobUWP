@@ -98,6 +98,7 @@
     <Compile Include="AzureStorageClient.cs" />
     <Compile Include="Events\AccountCreatedEvent.cs" />
     <Compile Include="Events\AccountDeletedEvent.cs" />
+    <Compile Include="Events\SelectionClearedEvent.cs" />
     <Compile Include="LocalStorageService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

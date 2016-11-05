@@ -49,7 +49,7 @@ namespace BlobExplorer.Views
             {
                 var context = new BlobListNavigationContext();
                 context.Account = viewModel.StorageAccount;
-                context.BlobPrefix = item.Name;
+                context.BlobPrefix = item.Path;
                 context.Container = viewModel.Container;
 
                 this.Frame.Navigate(typeof(BlobListView), context);
