@@ -1,1 +1,1 @@
-Browse the contents of each container
+Change the access level of a container

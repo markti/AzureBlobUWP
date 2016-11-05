@@ -65,6 +65,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{71B4
 		Store\1.1.1.0\Screenshots\Desktop\05.txt = Store\1.1.1.0\Screenshots\Desktop\05.txt
 		Store\1.1.1.0\Screenshots\Desktop\06.png = Store\1.1.1.0\Screenshots\Desktop\06.png
 		Store\1.1.1.0\Screenshots\Desktop\06.txt = Store\1.1.1.0\Screenshots\Desktop\06.txt
+		Store\1.1.1.0\Screenshots\Desktop\07.png = Store\1.1.1.0\Screenshots\Desktop\07.png
+		Store\1.1.1.0\Screenshots\Desktop\07.txt = Store\1.1.1.0\Screenshots\Desktop\07.txt
 	EndProjectSection
 EndProject
 Global

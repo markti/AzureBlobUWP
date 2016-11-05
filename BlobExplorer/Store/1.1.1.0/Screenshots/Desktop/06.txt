@@ -1,1 +1,1 @@
-View details of each blob
+Upload/download files to/from your storage account
