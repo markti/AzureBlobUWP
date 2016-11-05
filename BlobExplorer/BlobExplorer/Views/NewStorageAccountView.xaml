@@ -23,7 +23,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Icon="Save" Label="Save" Click="OnSaveClick" />
+            <AppBarButton Icon="Save" Label="Save" Click="OnSaveClick" IsEnabled="{Binding CanSave}" />
             <AppBarButton Icon="Cancel" Label="Cancel" Click="OnCancelClick" />
         </CommandBar>
     </Page.BottomAppBar>

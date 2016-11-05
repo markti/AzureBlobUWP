@@ -78,16 +78,14 @@ namespace BlobExplorer
                 }
                 else if(item is ICloudBlob)
                 {
+                    
                     var blobItem = item as ICloudBlob;
+                    newBlobItem.IsDirectory = false;
+                    newBlobItem.Uri = blobItem.Uri;
+                    newBlobItem = await GetBlobDetail(newBlobItem);
                     var fileName = blobItem.Name.Substring(prefix.Length, blobItem.Name.Length - prefix.Length);
                     newBlobItem.Name = fileName;
                     newBlobItem.Path = blobItem.Name;
-                    newBlobItem.IsDirectory = false;
-                    newBlobItem.LengthInBytes = blobItem.StreamWriteSizeInBytes;
-                    newBlobItem.Uri = blobItem.Uri;
-
-                    var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobItem.Uri);
-                    
                 }
 
                 list.Add(newBlobItem);

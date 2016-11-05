@@ -18,7 +18,7 @@
         <DataTemplate x:Key="BlobItemTemplate">
             <Grid Width="250" Height="125">
                 <TextBlock Margin="16" Text="{Binding Name}" />
-                <TextBlock Margin="16" Text="{Binding FileSize}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="8" Foreground="DarkGray" />
+                <TextBlock Margin="16" Text="{Binding LengthDescription}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="8" Foreground="DarkGray" />
             </Grid>
         </DataTemplate>
         
