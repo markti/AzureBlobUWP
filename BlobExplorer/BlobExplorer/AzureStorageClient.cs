@@ -45,5 +45,42 @@ namespace BlobExplorer
 
             return list;
         }
+
+        public async Task<List<AzureStorageBlob>> GetBlobs(string containerName, string prefix)
+        {
+            var list = new List<AzureStorageBlob>();
+            
+            var flatBlobs = false;
+            var continuationToken = new BlobContinuationToken();
+            var requestOptions = new BlobRequestOptions();
+            var cancelToken = new CancellationToken();
+            var opContext = new OperationContext();
+
+            var container = blobClient.GetContainerReference(containerName);
+
+            var operationOutcome = await container.ListBlobsSegmentedAsync(prefix, flatBlobs, BlobListingDetails.Metadata, 1000, continuationToken, requestOptions, opContext);
+
+            foreach (var item in operationOutcome.Results)
+            {
+                var newBlobItem = new AzureStorageBlob();
+
+                if (item is CloudBlobDirectory)
+                {
+                    var blobDir = item as CloudBlobDirectory;
+                    newBlobItem.Name = blobDir.Prefix;
+                    newBlobItem.IsDirectory = true;
+                }
+                else if(item is ICloudBlob)
+                {
+                    var blobItem = item as ICloudBlob;
+                    newBlobItem.Name = blobItem.Name;
+                    newBlobItem.IsDirectory = false;
+                }
+
+                list.Add(newBlobItem);
+            }
+
+            return list;
+        }
     }
 }

@@ -23,15 +23,15 @@ namespace BlobExplorer.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ContainerListView : Page
+    public sealed partial class BlobListView : Page
     {
-        ContainerListViewModel viewModel;
+        BlobListViewModel viewModel;
 
-        public ContainerListView()
+        public BlobListView()
         {
             this.InitializeComponent();
 
-            this.viewModel = new ContainerListViewModel();
+            viewModel = new BlobListViewModel();
             this.DataContext = viewModel;
         }
 
@@ -39,29 +39,25 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
-            viewModel.OnNavigatedTo(e);
+            viewModel.OnNavigatedTo(e.Parameter as BlobListNavigationContext);
         }
-
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.DeleteStorageAccount();
-        }
-
-        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
-        {
-            viewModel.Refresh();
-        }
-
         private void GridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var item = e.ClickedItem as AzureStorageContainer;
+            var item = e.ClickedItem as AzureStorageBlob;
 
-            var context = new BlobListNavigationContext();
-            context.Account = viewModel.StorageAccount;
-            context.BlobPrefix = "";
-            context.Container = item;
+            if(item.IsDirectory)
+            {
+                var context = new BlobListNavigationContext();
+                context.Account = viewModel.StorageAccount;
+                context.BlobPrefix = item.Name;
+                context.Container = viewModel.Container;
 
-            this.Frame.Navigate(typeof(BlobListView), context);
+                this.Frame.Navigate(typeof(BlobListView), context);
+            }
+            else
+            {
+                // not sure what to do...maybe download?
+            }
         }
     }
 }

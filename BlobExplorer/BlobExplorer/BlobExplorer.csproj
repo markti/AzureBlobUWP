@@ -103,12 +103,18 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\AzureStorageAccount.cs" />
+    <Compile Include="Model\AzureStorageBlob.cs" />
     <Compile Include="Model\AzureStorageContainer.cs" />
+    <Compile Include="Navigation\BlobListNavigationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\BlobListViewModel.cs" />
     <Compile Include="ViewModel\ContainerListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Compile Include="ViewModel\NewStorageAccountViewModel.cs" />
+    <Compile Include="Views\BlobListView.xaml.cs">
+      <DependentUpon>BlobListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContainerListView.xaml.cs">
       <DependentUpon>ContainerListView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +152,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BlobListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContainerListView.xaml">
       <SubType>Designer</SubType>

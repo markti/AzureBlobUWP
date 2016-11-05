@@ -14,7 +14,7 @@ namespace BlobExplorer.ViewModel
     {
         private LocalStorageService localStorage;
         private AzureStorageClient client;
-        private AzureStorageAccount storageAccount;
+        public AzureStorageAccount StorageAccount { get; set; }
         public ObservableCollection<AzureStorageContainer> Containers { get; private set; }
 
         public ContainerListViewModel()
@@ -25,7 +25,7 @@ namespace BlobExplorer.ViewModel
 
         public void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.storageAccount = e.Parameter as AzureStorageAccount;
+            this.StorageAccount = e.Parameter as AzureStorageAccount;
             InitializeClient();
             RefreshContainers();
         }
@@ -34,7 +34,7 @@ namespace BlobExplorer.ViewModel
         {
             try
             {
-                client = new AzureStorageClient(storageAccount);
+                client = new AzureStorageClient(StorageAccount);
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace BlobExplorer.ViewModel
 
         internal void DeleteStorageAccount()
         {
-            this.localStorage.RemoveStorageAccount(this.storageAccount);
+            this.localStorage.RemoveStorageAccount(this.StorageAccount);
         }
 
         internal void Refresh()
