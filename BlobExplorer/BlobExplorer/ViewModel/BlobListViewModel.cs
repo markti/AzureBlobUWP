@@ -1,5 +1,6 @@
 ﻿using BlobExplorer.Model;
 using BlobExplorer.Navigation;
+using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
 {
-    public class BlobListViewModel
+    public class BlobListViewModel : ViewModelBase
     {
         private AzureStorageClient client;
         public AzureStorageAccount StorageAccount { get; set; }
@@ -17,6 +18,14 @@ namespace BlobExplorer.ViewModel
         private string prefix;
 
         public ObservableCollection<AzureStorageBlob> Blobs { get; private set; }
+        private AzureStorageBlob selectedBlob;
+
+        public AzureStorageBlob SelectedBlob
+        {
+            get { return selectedBlob; }
+            set { selectedBlob = value; this.RaisePropertyChanged(); }
+        }
+
 
         public BlobListViewModel()
         {

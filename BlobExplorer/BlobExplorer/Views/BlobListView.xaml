@@ -6,21 +6,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:selectors="using:BlobExplorer.Selectors"
     >
     <Page.Resources>
-        <DataTemplate x:Key="BlobItemTemplate">
+
+        <DataTemplate x:Key="FolderItemTemplate">
             <Grid Width="250" Height="125">
                 <TextBlock Margin="16" Text="{Binding Name}" />
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="BlobItemTemplate">
+            <Grid Width="250" Height="125">
+                <TextBlock Margin="16" Text="{Binding Name}" />
+                <TextBlock Margin="16" Text="{Binding FileSize}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="8" Foreground="DarkGray" />
+            </Grid>
+        </DataTemplate>
+        
+        <selectors:BlobItemTemplateSelector 
+            x:Key="BlobItemTemplateSelector" 
+            FolderItemTemplate="{StaticResource FolderItemTemplate}"
+            BlobItemTemplate="{StaticResource BlobItemTemplate}"
+            />
+        
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView
-            ItemTemplate="{StaticResource BlobItemTemplate}"
+            x:Name="GridView"
             ItemsSource="{Binding Blobs}" 
-            ItemClick="GridView_ItemClick" 
-            IsItemClickEnabled="True" 
-            SelectionMode="None"
+            SelectionMode="Multiple"
+            DoubleTapped="GridView_DoubleTapped"
+            ItemTemplateSelector="{StaticResource BlobItemTemplateSelector}"
+            SelectedItem="{Binding Path=SelectedBlob, Mode=TwoWay}"
             />
     </Grid>
 </Page>

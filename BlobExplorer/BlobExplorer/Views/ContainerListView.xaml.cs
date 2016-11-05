@@ -63,5 +63,18 @@ namespace BlobExplorer.Views
 
             this.Frame.Navigate(typeof(BlobListView), context);
         }
+
+        private void GridView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var element = e.OriginalSource as FrameworkElement;
+            var item = element.DataContext as AzureStorageContainer;
+
+            var context = new BlobListNavigationContext();
+            context.Account = viewModel.StorageAccount;
+            context.BlobPrefix = "";
+            context.Container = item;
+
+            this.Frame.Navigate(typeof(BlobListView), context);
+        }
     }
 }

@@ -79,6 +79,7 @@ namespace BlobExplorer
                     newBlobItem.Name = fileName;
                     newBlobItem.Path = blobItem.Name;
                     newBlobItem.IsDirectory = false;
+                    newBlobItem.SizeInBytes = blobItem.StreamWriteSizeInBytes;
                 }
 
                 list.Add(newBlobItem);

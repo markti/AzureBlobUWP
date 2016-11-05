@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AzureStorageClient.cs" />
+    <Compile Include="Common\FileSizeProvider.cs" />
     <Compile Include="Events\AccountCreatedEvent.cs" />
     <Compile Include="Events\AccountDeletedEvent.cs" />
     <Compile Include="Events\SelectionClearedEvent.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="Model\AzureStorageContainer.cs" />
     <Compile Include="Navigation\BlobListNavigationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selectors\BlobItemPreviewTemplateSelector.cs" />
+    <Compile Include="Selectors\BlobItemTemplateSelector.cs" />
     <Compile Include="ViewModel\BlobListViewModel.cs" />
     <Compile Include="ViewModel\ContainerListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

@@ -24,9 +24,8 @@
         <GridView
             ItemTemplate="{StaticResource ContainerItemTemplate}"
             ItemsSource="{Binding Containers}" 
-            ItemClick="GridView_ItemClick" 
-            IsItemClickEnabled="True" 
-            SelectionMode="None"
+            DoubleTapped="GridView_DoubleTapped"
+            SelectionMode="Multiple"
             />
     </Grid>
 </Page>

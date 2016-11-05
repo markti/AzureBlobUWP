@@ -45,7 +45,28 @@ namespace BlobExplorer.Views
         {
             var item = e.ClickedItem as AzureStorageBlob;
 
-            if(item.IsDirectory)
+            if (item.IsDirectory)
+            {
+                var context = new BlobListNavigationContext();
+                context.Account = viewModel.StorageAccount;
+                context.BlobPrefix = item.Path;
+                context.Container = viewModel.Container;
+
+                this.Frame.Navigate(typeof(BlobListView), context);
+            }
+            else
+            {
+                // not sure what to do...maybe download?
+                viewModel.SelectedBlob = item;
+            }
+        }
+
+        private void GridView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var element = e.OriginalSource as FrameworkElement;
+            var item = element.DataContext as AzureStorageBlob;
+
+            if (item.IsDirectory)
             {
                 var context = new BlobListNavigationContext();
                 context.Account = viewModel.StorageAccount;
