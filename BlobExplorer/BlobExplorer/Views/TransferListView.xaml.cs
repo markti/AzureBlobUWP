@@ -1,4 +1,5 @@
 ﻿using BlobExplorer.Events;
+using BlobExplorer.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -8,19 +9,23 @@ namespace BlobExplorer.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NoAccountsView : Page
+    public sealed partial class TransferListView : Page
     {
-        public NoAccountsView()
+        TransferListViewModel viewModel;
+
+        public TransferListView()
         {
             this.InitializeComponent();
+
+            this.viewModel = new TransferListViewModel();
+            this.DataContext = viewModel;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Home" });
-            Messenger.Default.Send<SelectionClearedEvent>(new SelectionClearedEvent());
+            Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Transfers" });
         }
     }
 }

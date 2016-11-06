@@ -1,13 +1,11 @@
 ﻿using BlobExplorer.Model;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Blob;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace BlobExplorer
