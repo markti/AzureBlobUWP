@@ -37,7 +37,7 @@
             <AppBarButton Icon="Add" Label="New Container" Click="OnCreateContainerClick" />
             <AppBarButton Icon="Edit" Label="Edit Container" Click="OnEditContainerClick" IsEnabled="{Binding CanEditContainer}" />
             <AppBarButton Icon="Refresh" Label="Refresh" Click="OnRefreshButtonClick" />
-            <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteContainersClick" IsEnabled="{Binding CanDeletedContainers}" />
+            <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteContainersClick" IsEnabled="{Binding CanDeleteContainers}" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Icon="Remove" Label="Remove Storage Account" Click="OnRemoveStorageAccountClick" />
             </CommandBar.SecondaryCommands>
