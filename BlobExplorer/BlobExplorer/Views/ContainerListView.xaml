@@ -13,9 +13,10 @@
         <converters:AccessLevelToColorConverter x:Key="AccessLevelConverter" />
 
         <DataTemplate x:Key="ContainerItemTemplate">
-            <Grid Width="250" Height="125">
-                <TextBlock Margin="16" Text="{Binding Name}" />
-                <Rectangle Fill="{Binding Path=AccessLevel.Code, Converter={StaticResource AccessLevelConverter}}" Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="16" />
+            <Grid Width="250" Height="125" Background="WhiteSmoke">
+                <FontIcon Glyph="" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16" />
+                <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16" />
+                <Rectangle Fill="{Binding Path=AccessLevel.Code, Converter={StaticResource AccessLevelConverter}}" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -27,6 +28,7 @@
             DoubleTapped="GridView_DoubleTapped"
             SelectionMode="Multiple" 
             SelectionChanged="GridView_SelectionChanged"
+            Margin="4"
             />
     </Grid>
     

@@ -11,14 +11,16 @@
     <Page.Resources>
 
         <DataTemplate x:Key="FolderItemTemplate">
-            <Grid Width="250" Height="125">
-                <TextBlock Margin="16" Text="{Binding Name}" />
+            <Grid Width="250" Height="125" Background="WhiteSmoke">
+                <FontIcon Glyph="" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16" />
+                <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16" />
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="BlobItemTemplate">
-            <Grid Width="250" Height="125">
-                <TextBlock Margin="16" Text="{Binding Name}" />
-                <TextBlock Margin="16" Text="{Binding LengthDescription}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="8" Foreground="DarkGray" />
+            <Grid Width="250" Height="125" Background="WhiteSmoke">
+                <FontIcon Glyph="" FontSize="48" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16" />
+                <TextBlock Text="{Binding Name}" Margin="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBlock Text="{Binding LengthDescription}" Margin="16" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="8" Foreground="DarkGray" />
             </Grid>
         </DataTemplate>
         
@@ -39,6 +41,7 @@
             ItemTemplateSelector="{StaticResource BlobItemTemplateSelector}"
             SelectedItem="{Binding Path=SelectedBlob, Mode=TwoWay}" 
             SelectionChanged="GridView_SelectionChanged"
+            Margin="4"
             />
     </Grid>
 
