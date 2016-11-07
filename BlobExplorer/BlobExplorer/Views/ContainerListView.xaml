@@ -21,6 +21,12 @@
         </DataTemplate>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <GridView
             x:Name="ContainerListGridView"
             ItemTemplate="{StaticResource ContainerItemTemplate}"
@@ -30,10 +36,8 @@
             SelectionChanged="GridView_SelectionChanged"
             Margin="4"
             />
-    </Grid>
-    
-    <Page.BottomAppBar>
-        <CommandBar>
+
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="Add" Label="New Container" Click="OnCreateContainerClick" />
             <AppBarButton Icon="Edit" Label="Edit Container" Click="OnEditContainerClick" IsEnabled="{Binding CanEditContainer}" />
             <AppBarButton Icon="Refresh" Label="Refresh" Click="OnRefreshButtonClick" />
@@ -42,5 +46,7 @@
                 <AppBarButton Icon="Remove" Label="Remove Storage Account" Click="OnRemoveStorageAccountClick" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
-    </Page.BottomAppBar>
+        
+    </Grid>
+    
 </Page>
