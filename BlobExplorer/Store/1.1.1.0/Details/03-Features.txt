@@ -4,6 +4,10 @@ Browse your containers and blob folder hierarchy
 
 Download files stored on Blob Storage
 
+Upload local files to your Blob Containers
+
 View details of your blobs
 
 Create & Delete Containers
+
+Change Access Level for Containers
