@@ -4,6 +4,8 @@ using BlobExplorer.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System.Threading.Tasks;
+using System;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace BlobExplorer.ViewModel
 {
@@ -32,6 +34,15 @@ namespace BlobExplorer.ViewModel
         {
                 client = new AzureStorageClient(StorageAccount);
         }
+
+        public void CopyBlobUrlToClipboard()
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(this.blob.Uri.AbsoluteUri);
+            // Set the DataPackage to clipboard.
+            Clipboard.SetContent(dataPackage);
+        }
+
         public async Task Refresh()
         {
             var fullDetail = await client.GetBlobDetail(this.Blob);

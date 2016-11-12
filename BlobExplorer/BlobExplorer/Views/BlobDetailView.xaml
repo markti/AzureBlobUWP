@@ -38,10 +38,15 @@
                             Header="Blob Type"
                             Text="{Binding Path=Blob.BlobType}"
                             />
-                        <controls:HeaderedTextBlock 
-                            Header="URI"
-                            Text="{Binding Path=Blob.Uri}"
-                            />
+                        <StackPanel Orientation="Horizontal">
+                            <controls:HeaderedTextBlock 
+                                Header="URI"
+                                Text="{Binding Path=Blob.Uri}"
+                                />
+                            <Button Width="48" Height="48" Margin="16,0,0,0" Click="CopyBlobUrlClick">
+                                <FontIcon Glyph="" />
+                            </Button>
+                        </StackPanel>
                         <controls:HeaderedTextBlock 
                             Header="ETag"
                             Text="{Binding Path=Blob.ETag}"

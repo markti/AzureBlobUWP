@@ -29,5 +29,10 @@ namespace BlobExplorer.Views
 
             viewModel.OnNavigatedTo(context);
         }
+
+        private void CopyBlobUrlClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            viewModel.CopyBlobUrlToClipboard();
+        }
     }
 }
