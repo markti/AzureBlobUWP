@@ -26,6 +26,8 @@ namespace BlobExplorer
     /// </summary>
     sealed partial class App : Application
     {
+        TransferManager transferManager = null;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -45,6 +47,8 @@ namespace BlobExplorer
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            transferManager = TransferManager.Instance;
+
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {

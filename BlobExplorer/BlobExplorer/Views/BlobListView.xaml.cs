@@ -77,7 +77,7 @@ namespace BlobExplorer.Views
             }
         }
 
-        private async void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private async void DownloadBlobClicked(object sender, RoutedEventArgs e)
         {
             await DoDownload();
         }
@@ -104,7 +104,7 @@ namespace BlobExplorer.Views
             await viewModel.DownloadFile(targetFile);
         }
 
-        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        private void UploadBlobClicked(object sender, RoutedEventArgs e)
         {
             DoUpload();
         }

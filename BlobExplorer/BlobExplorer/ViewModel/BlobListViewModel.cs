@@ -68,7 +68,16 @@ namespace BlobExplorer.ViewModel
         public async Task DownloadFile(StorageFile targetFile)
         {
             var firstItem = this.SelectedItems.FirstOrDefault();
-            client.DownloadBlob(targetFile, firstItem.Uri);
+            // don't do this anymore!
+            //client.DownloadBlob(targetFile, firstItem.Uri);
+
+            var payload = new BlobDownloadRequestedEvent();
+            payload.Target = targetFile;
+            payload.Source = firstItem;
+            payload.FileName = firstItem.Name;
+            payload.FullPath = firstItem.Uri.AbsoluteUri;
+
+            Messenger.Default.Send<BlobDownloadRequestedEvent>(payload);
         }
 
         public async Task UploadFile(StorageFile sourceFile)

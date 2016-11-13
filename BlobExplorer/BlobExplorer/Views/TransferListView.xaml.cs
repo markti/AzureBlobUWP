@@ -26,6 +26,8 @@ namespace BlobExplorer.Views
             base.OnNavigatedTo(e);
 
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Transfers" });
+
+            viewModel.OnNavigatedTo();
         }
     }
 }
