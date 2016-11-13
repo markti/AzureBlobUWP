@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 using BlobExplorer.Model;
+using BlobExplorer.Events;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace BlobExplorer.ViewModel
 {
@@ -24,6 +26,16 @@ namespace BlobExplorer.ViewModel
             {
                 this.Transfers.Add(item);
             }
+        }
+
+        internal void CancelTransfer(BlobTransfer transferItem)
+        {
+            var payload = new BlobTransferCancelRequestedEvent();
+            payload.Transfer = transferItem;
+
+            Messenger.Default.Send<BlobTransferCancelRequestedEvent>(payload);
+
+            this.Transfers.Remove(transferItem);
         }
     }
 }

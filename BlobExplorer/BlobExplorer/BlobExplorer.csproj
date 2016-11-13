@@ -107,6 +107,7 @@
     <Compile Include="Events\AccountCreatedEvent.cs" />
     <Compile Include="Events\AccountDeletedEvent.cs" />
     <Compile Include="Events\BlobDownloadRequestedEvent.cs" />
+    <Compile Include="Events\BlobTransferCancelRequestedEvent.cs" />
     <Compile Include="Events\DownloadProgressChangedEvent.cs" />
     <Compile Include="Events\PageTitleChangedEvent.cs" />
     <Compile Include="Events\SelectionClearedEvent.cs" />

@@ -1,4 +1,5 @@
 ﻿using BlobExplorer.Events;
+using BlobExplorer.Model;
 using BlobExplorer.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using Windows.UI.Xaml.Controls;
@@ -28,6 +29,14 @@ namespace BlobExplorer.Views
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Transfers" });
 
             viewModel.OnNavigatedTo();
+        }
+
+        private void OnCancelOperationClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var cancelButton = sender as Button;
+            var transferItem = cancelButton.DataContext as BlobTransfer;
+
+            viewModel.CancelTransfer(transferItem);
         }
     }
 }

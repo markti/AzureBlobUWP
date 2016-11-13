@@ -13,9 +13,9 @@ namespace BlobExplorer
 {
     public class TransferManager : IDisposable
     {
-        private List<DownloadOperation> activeDownloads;
         private CancellationTokenSource cts;
 
+        private List<DownloadOperation> activeDownloads;
         public List<BlobTransfer> TransferHistory { get; set; }
 
         private static TransferManager instance;
@@ -30,18 +30,33 @@ namespace BlobExplorer
                 return instance;
             }
         }
-
+        private Dictionary<Guid, CancellationTokenSource> cancellationTokens;
+        
         private TransferManager()
         {
-            TransferHistory = new List<BlobTransfer>();
             cts = new CancellationTokenSource();
+
+            cancellationTokens = new Dictionary<Guid, CancellationTokenSource>();
             activeDownloads = new List<DownloadOperation>();
+
+            TransferHistory = new List<BlobTransfer>();
 
             this.RegisterEvents();
         }
 
         public void Dispose()
         {
+            // dispose of all cancellation tokens because the application is shutting down
+            foreach(var cancelItem in cancellationTokens.Values)
+            {
+                if (cancelItem != null)
+                {
+                    cancelItem.Dispose();
+                }
+            }
+            // remove all references to the cancellation tokens so that they may be garbage collected
+            cancellationTokens.Clear();
+
             if (cts != null)
             {
                 cts.Dispose();
@@ -54,12 +69,28 @@ namespace BlobExplorer
         private void RegisterEvents()
         {
             Messenger.Default.Register<BlobDownloadRequestedEvent>(this, OnBlobDownloadRequested);
+            Messenger.Default.Register<BlobTransferCancelRequestedEvent>(this, OnTransferCancelRequested);
         }
 
-        private void OnBlobDownloadRequested(BlobDownloadRequestedEvent obj)
+        private void OnTransferCancelRequested(BlobTransferCancelRequestedEvent payload)
         {
-            var destinationFile = obj.Target;
-            var source = obj.Source.Uri;
+            this.TransferHistory.Remove(payload.Transfer);
+
+            var id = payload.Transfer.Identifier;
+            var cts = cancellationTokens[id];
+            if(cts != null)
+            {
+                cts.Cancel();
+                cts.Dispose();
+                // remove all references to the cancellation token
+                cancellationTokens.Remove(id);
+            }
+        }
+
+        private void OnBlobDownloadRequested(BlobDownloadRequestedEvent payload)
+        {
+            var destinationFile = payload.Target;
+            var source = payload.Source.Uri;
 
             BackgroundDownloader downloader = new BackgroundDownloader();
             DownloadOperation download = downloader.CreateDownload(source, destinationFile);
@@ -67,8 +98,8 @@ namespace BlobExplorer
             var transfer = new BlobTransfer();
             transfer.Identifier = download.Guid;
             transfer.PercentComplete = 0;
-            transfer.FileName = obj.FileName;
-            transfer.FullPath = obj.FullPath;
+            transfer.FileName = payload.FileName;
+            transfer.FullPath = payload.FullPath;
 
             this.TransferHistory.Add(transfer);
 
@@ -83,6 +114,10 @@ namespace BlobExplorer
                 activeDownloads.Add(download);
 
                 Progress<DownloadOperation> progressCallback = new Progress<DownloadOperation>(DownloadProgress);
+
+                //var cts = new CancellationTokenSource();
+                //cancellationTokens.Add(download.Guid, cts);
+
                 if (start)
                 {
                     // Start the download and attach a progress handler.
