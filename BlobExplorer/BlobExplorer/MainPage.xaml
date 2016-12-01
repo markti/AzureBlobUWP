@@ -8,9 +8,13 @@
     mc:Ignorable="d"
     
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converter="using:BlobExplorer.Converters"
     >
 
     <Page.Resources>
+
+        <converter:AccountStateToSymbolConverter x:Key="AccountStateConverter" />
+
         <DataTemplate x:Key="AccountMenuItem">
             <Grid Width="240" Height="48">
                 <Grid.ColumnDefinitions>
@@ -22,7 +26,7 @@
                     Grid.Column="0" 
                     Margin="12,12,11,12" 
                     FontFamily="Segoe MDL2 Assets" 
-                    Glyph=""
+                    Glyph="{Binding IsConnected, Converter={StaticResource AccountStateConverter}}"
                     Foreground="White" 
                     />
                 <TextBlock 

@@ -20,5 +20,11 @@ namespace BlobExplorer.Model
             get { return key; }
             set { key = value;  RaisePropertyChanged(); }
         }
+        private bool isConnected;
+        public bool IsConnected
+        {
+            get { return isConnected; }
+            set { isConnected = value; RaisePropertyChanged(); }
+        }
     }
 }

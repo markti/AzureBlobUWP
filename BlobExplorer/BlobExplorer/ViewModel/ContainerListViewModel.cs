@@ -13,7 +13,12 @@ namespace BlobExplorer.ViewModel
     {
         private LocalStorageService localStorage;
         private AzureStorageClient client;
-        public AzureStorageAccount StorageAccount { get; set; }
+        private AzureStorageAccount storageAccount;
+        public AzureStorageAccount StorageAccount
+        {
+            get { return storageAccount; }
+            set { storageAccount = value; RaisePropertyChanged(); }
+        }
         public ObservableCollection<AzureStorageContainer> Containers { get; private set; }
         public ObservableCollection<AzureStorageContainer> SelectedContainers { get; private set; }
         private bool canDeleteContainers;

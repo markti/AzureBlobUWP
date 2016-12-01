@@ -104,6 +104,7 @@
     <Compile Include="AzureStorageClient.cs" />
     <Compile Include="Common\FileSizeProvider.cs" />
     <Compile Include="Converters\AccessLevelToColorConverter.cs" />
+    <Compile Include="Converters\AccountStateToSymbolConverter.cs" />
     <Compile Include="Events\AccountCreatedEvent.cs" />
     <Compile Include="Events\AccountDeletedEvent.cs" />
     <Compile Include="Events\BlobDownloadRequestedEvent.cs" />

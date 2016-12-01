@@ -7,9 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:converters="using:BlobExplorer.Converters"
+    
+    xmlns:toolkitConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     >
     <Page.Resources>
 
+        <toolkitConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        
+        
+        <toolkitConverters:BoolToVisibilityConverter 
+            x:Key="InvertedBoolToVisibility" 
+            TrueValue="Collapsed" 
+            FalseValue="Visible" 
+            />
+        
         <converters:AccessLevelToColorConverter x:Key="AccessLevelConverter" />
 
         <DataTemplate x:Key="ContainerItemTemplate">
@@ -27,6 +38,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <TextBlock 
+            Visibility="{Binding Path=StorageAccount.IsConnected, Converter={StaticResource InvertedBoolToVisibility}}"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Text="There was an error when attempting to connect to this storage account. Please check it's configuration and try again."
+            TextWrapping="WrapWholeWords"
+            />
+
         <GridView
             x:Name="ContainerListGridView"
             ItemTemplate="{StaticResource ContainerItemTemplate}"
@@ -35,6 +54,7 @@
             SelectionMode="Multiple" 
             SelectionChanged="GridView_SelectionChanged"
             Margin="4"
+            Visibility="{Binding Path=StorageAccount.IsConnected, Converter={StaticResource BoolToVisibility}}"
             />
 
         <CommandBar Grid.Row="1">

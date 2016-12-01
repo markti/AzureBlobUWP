@@ -3,6 +3,7 @@ using BlobExplorer.Model;
 using BlobExplorer.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -75,6 +76,16 @@ namespace BlobExplorer.ViewModel
             var accounts = await storageService.GetStorageAccounts();
             foreach(var item in accounts)
             {
+                try
+                {
+                    var client = new AzureStorageClient(item);
+                    item.IsConnected = true;
+                }
+                catch (Exception ex)
+                {
+                    // error
+                    item.IsConnected = false;
+                }
                 this.Accounts.Add(item);
             }
         }
