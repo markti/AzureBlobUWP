@@ -101,7 +101,10 @@ namespace BlobExplorer.Views
             savePicker.FileTypeChoices.Add("all files", new List<string> { ".avi" });
 
             var targetFile = await savePicker.PickSaveFileAsync();
-            await viewModel.DownloadFile(targetFile);
+            if(targetFile != null)
+            {
+                await viewModel.DownloadFile(targetFile);
+            }
         }
 
         private void UploadBlobClicked(object sender, RoutedEventArgs e)

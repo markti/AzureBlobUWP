@@ -77,13 +77,16 @@ namespace BlobExplorer
             this.TransferHistory.Remove(payload.Transfer);
 
             var id = payload.Transfer.Identifier;
-            var cts = cancellationTokens[id];
-            if(cts != null)
+            if(cancellationTokens.ContainsKey(id))
             {
-                cts.Cancel();
-                cts.Dispose();
-                // remove all references to the cancellation token
-                cancellationTokens.Remove(id);
+                var cts = cancellationTokens[id];
+                if (cts != null)
+                {
+                    cts.Cancel();
+                    cts.Dispose();
+                    // remove all references to the cancellation token
+                    cancellationTokens.Remove(id);
+                }
             }
         }
 
@@ -115,8 +118,8 @@ namespace BlobExplorer
 
                 Progress<DownloadOperation> progressCallback = new Progress<DownloadOperation>(DownloadProgress);
 
-                //var cts = new CancellationTokenSource();
-                //cancellationTokens.Add(download.Guid, cts);
+                var cts = new CancellationTokenSource();
+                cancellationTokens.Add(download.Guid, cts);
 
                 if (start)
                 {
