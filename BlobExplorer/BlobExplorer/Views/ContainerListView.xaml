@@ -32,7 +32,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Text="There was an error when attempting to connect to this storage account. Please check it's configuration and try again."
-            TextWrapping="WrapWholeWords"
+            TextWrapping="WrapWholeWords" Margin="16"
             />
 
         <GridView
