@@ -7,19 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:converters="using:BlobExplorer.Converters"
-    
-    xmlns:toolkitConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     >
     <Page.Resources>
-
-        <toolkitConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-        
-        
-        <toolkitConverters:BoolToVisibilityConverter 
-            x:Key="InvertedBoolToVisibility" 
-            TrueValue="Collapsed" 
-            FalseValue="Visible" 
-            />
         
         <converters:AccessLevelToColorConverter x:Key="AccessLevelConverter" />
 
