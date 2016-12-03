@@ -1,0 +1,8 @@
+Version 1.1.1.0
+ - Small aesthetic changes
+ - Added Blob Details Page
+ - Create / Delete Containers
+ - Upload files
+Version 1.1.2.0
+ - Cancel downloads
+ - Visual indicator on storage account connectivity

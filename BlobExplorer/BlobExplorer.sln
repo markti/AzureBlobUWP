@@ -69,6 +69,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{71B4
 		Store\1.1.1.0\Screenshots\Desktop\07.txt = Store\1.1.1.0\Screenshots\Desktop\07.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1.2.0", "1.1.2.0", "{36EC9F6E-5E2B-4233-A2FD-CDF3078265B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Details", "Details", "{F9F8432D-FE1A-4112-8866-B36EBE5FB5D9}"
+	ProjectSection(SolutionItems) = preProject
+		Store\1.1.2.0\Details\01-Description.txt = Store\1.1.2.0\Details\01-Description.txt
+		Store\1.1.2.0\Details\02-ReleaseNotes.txt = Store\1.1.2.0\Details\02-ReleaseNotes.txt
+		Store\1.1.2.0\Details\03-Features.txt = Store\1.1.2.0\Details\03-Features.txt
+		Store\1.1.2.0\Details\04-Keywords.txt = Store\1.1.2.0\Details\04-Keywords.txt
+		Store\1.1.2.0\Details\05-Copyright.txt = Store\1.1.2.0\Details\05-Copyright.txt
+		Store\1.1.2.0\Details\06-Website.txt = Store\1.1.2.0\Details\06-Website.txt
+		Store\1.1.2.0\Details\07-ContactInfo.txt = Store\1.1.2.0\Details\07-ContactInfo.txt
+		Store\1.1.2.0\Details\08-PrivacyPolicy.txt = Store\1.1.2.0\Details\08-PrivacyPolicy.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{81760026-A9E4-4E39-AFCC-95B43D928022}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{A9F77489-BB1E-4897-9FB1-5A2782A6B7C1}"
+	ProjectSection(SolutionItems) = preProject
+		Store\1.1.2.0\Screenshots\Desktop\01.png = Store\1.1.2.0\Screenshots\Desktop\01.png
+		Store\1.1.2.0\Screenshots\Desktop\01.txt = Store\1.1.2.0\Screenshots\Desktop\01.txt
+		Store\1.1.2.0\Screenshots\Desktop\02.png = Store\1.1.2.0\Screenshots\Desktop\02.png
+		Store\1.1.2.0\Screenshots\Desktop\02.txt = Store\1.1.2.0\Screenshots\Desktop\02.txt
+		Store\1.1.2.0\Screenshots\Desktop\03.png = Store\1.1.2.0\Screenshots\Desktop\03.png
+		Store\1.1.2.0\Screenshots\Desktop\03.txt = Store\1.1.2.0\Screenshots\Desktop\03.txt
+		Store\1.1.2.0\Screenshots\Desktop\04.png = Store\1.1.2.0\Screenshots\Desktop\04.png
+		Store\1.1.2.0\Screenshots\Desktop\04.txt = Store\1.1.2.0\Screenshots\Desktop\04.txt
+		Store\1.1.2.0\Screenshots\Desktop\05.png = Store\1.1.2.0\Screenshots\Desktop\05.png
+		Store\1.1.2.0\Screenshots\Desktop\05.txt = Store\1.1.2.0\Screenshots\Desktop\05.txt
+		Store\1.1.2.0\Screenshots\Desktop\06.png = Store\1.1.2.0\Screenshots\Desktop\06.png
+		Store\1.1.2.0\Screenshots\Desktop\06.txt = Store\1.1.2.0\Screenshots\Desktop\06.txt
+		Store\1.1.2.0\Screenshots\Desktop\07.png = Store\1.1.2.0\Screenshots\Desktop\07.png
+		Store\1.1.2.0\Screenshots\Desktop\07.txt = Store\1.1.2.0\Screenshots\Desktop\07.txt
+		Store\1.1.2.0\Screenshots\Desktop\08.png = Store\1.1.2.0\Screenshots\Desktop\08.png
+		Store\1.1.2.0\Screenshots\Desktop\08.txt = Store\1.1.2.0\Screenshots\Desktop\08.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -111,5 +147,9 @@ Global
 		{49777B03-6936-4B62-B5B4-4B4643BF8D34} = {B2071B5F-9EC3-4A81-A6A7-DAF92F8F2406}
 		{F2A3F3C2-5751-4D2F-935E-6F2B8525A80D} = {B2071B5F-9EC3-4A81-A6A7-DAF92F8F2406}
 		{71B481A6-20A0-44CB-A742-C3F5E62022E0} = {F2A3F3C2-5751-4D2F-935E-6F2B8525A80D}
+		{36EC9F6E-5E2B-4233-A2FD-CDF3078265B6} = {FDA70D4A-BE21-4E6D-8A3D-79BF8885CD69}
+		{F9F8432D-FE1A-4112-8866-B36EBE5FB5D9} = {36EC9F6E-5E2B-4233-A2FD-CDF3078265B6}
+		{81760026-A9E4-4E39-AFCC-95B43D928022} = {36EC9F6E-5E2B-4233-A2FD-CDF3078265B6}
+		{A9F77489-BB1E-4897-9FB1-5A2782A6B7C1} = {81760026-A9E4-4E39-AFCC-95B43D928022}
 	EndGlobalSection
 EndGlobal
