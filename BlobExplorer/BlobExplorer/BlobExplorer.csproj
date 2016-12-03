@@ -21,6 +21,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <HockeyAppResourceId>a2ae58656ee942ea9d5960e6be8018bb</HockeyAppResourceId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -103,8 +104,12 @@
     <Compile Include="AzureStorageClient.cs" />
     <Compile Include="Common\FileSizeProvider.cs" />
     <Compile Include="Converters\AccessLevelToColorConverter.cs" />
+    <Compile Include="Converters\AccountStateToSymbolConverter.cs" />
     <Compile Include="Events\AccountCreatedEvent.cs" />
     <Compile Include="Events\AccountDeletedEvent.cs" />
+    <Compile Include="Events\BlobDownloadRequestedEvent.cs" />
+    <Compile Include="Events\BlobTransferCancelRequestedEvent.cs" />
+    <Compile Include="Events\DownloadProgressChangedEvent.cs" />
     <Compile Include="Events\PageTitleChangedEvent.cs" />
     <Compile Include="Events\SelectionClearedEvent.cs" />
     <Compile Include="LocalStorageService.cs" />
@@ -114,6 +119,7 @@
     <Compile Include="Model\AzureStorageAccount.cs" />
     <Compile Include="Model\AzureStorageBlob.cs" />
     <Compile Include="Model\AzureStorageContainer.cs" />
+    <Compile Include="Model\BlobTransfer.cs" />
     <Compile Include="Model\ContainerAccessLevel.cs" />
     <Compile Include="Model\UserSettings.cs" />
     <Compile Include="Navigation\BlobDetailNavigationContext.cs" />
@@ -122,6 +128,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selectors\BlobItemPreviewTemplateSelector.cs" />
     <Compile Include="Selectors\BlobItemTemplateSelector.cs" />
+    <Compile Include="TransferManager.cs" />
     <Compile Include="ViewModel\BlobDetailViewModel.cs" />
     <Compile Include="ViewModel\BlobListViewModel.cs" />
     <Compile Include="ViewModel\ContainerEditorViewModel.cs" />
@@ -130,6 +137,7 @@
     <Compile Include="ViewModel\MenuItemViewModel.cs" />
     <Compile Include="ViewModel\NewStorageAccountViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\TransferListViewModel.cs" />
     <Compile Include="Views\BlobDetailView.xaml.cs">
       <DependentUpon>BlobDetailView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +158,9 @@
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TransferListView.xaml.cs">
+      <DependentUpon>TransferListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TransferListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

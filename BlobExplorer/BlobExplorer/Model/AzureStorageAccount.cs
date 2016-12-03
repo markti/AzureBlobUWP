@@ -1,9 +1,4 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlobExplorer.Model
 {
@@ -24,6 +19,12 @@ namespace BlobExplorer.Model
         {
             get { return key; }
             set { key = value;  RaisePropertyChanged(); }
+        }
+        private bool isConnected;
+        public bool IsConnected
+        {
+            get { return isConnected; }
+            set { isConnected = value; RaisePropertyChanged(); }
         }
     }
 }

@@ -8,9 +8,13 @@
     mc:Ignorable="d"
     
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converter="using:BlobExplorer.Converters"
     >
 
     <Page.Resources>
+
+        <converter:AccountStateToSymbolConverter x:Key="AccountStateConverter" />
+
         <DataTemplate x:Key="AccountMenuItem">
             <Grid Width="240" Height="48">
                 <Grid.ColumnDefinitions>
@@ -18,11 +22,22 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
+                <Rectangle 
+                    x:Name="ConnectedIndicator" 
+                    Fill="Red" Margin="0" 
+                    Visibility="{Binding IsConnected, Converter={StaticResource InvertedBoolToVisibility}}" Width="4" HorizontalAlignment="Left"
+                    />
+                <Rectangle 
+                    x:Name="NotConnectedIndicator" 
+                    Fill="Green" Margin="0" 
+                    Visibility="{Binding IsConnected, Converter={StaticResource BoolToVisibility}}" Width="4" HorizontalAlignment="Left"
+                    />
+
                 <FontIcon 
                     Grid.Column="0" 
                     Margin="12,12,11,12" 
                     FontFamily="Segoe MDL2 Assets" 
-                    Glyph=""
+                    Glyph="{Binding IsConnected, Converter={StaticResource AccountStateConverter}}"
                     Foreground="White" 
                     />
                 <TextBlock 
@@ -63,7 +78,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:HamburgerMenu
             x:Name="HamburgerMenuControl"
-            PaneBackground="CornflowerBlue"
+            PaneBackground="#FF2B2B2B"
             Foreground="White"
             ItemTemplate="{StaticResource AccountMenuItem}"
             OptionsItemTemplate="{StaticResource OptionMenuItem}"

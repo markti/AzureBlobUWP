@@ -3,12 +3,9 @@ using BlobExplorer.Model;
 using BlobExplorer.Navigation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -71,7 +68,16 @@ namespace BlobExplorer.ViewModel
         public async Task DownloadFile(StorageFile targetFile)
         {
             var firstItem = this.SelectedItems.FirstOrDefault();
-            client.DownloadBlob(targetFile, firstItem.Uri);
+            // don't do this anymore!
+            //client.DownloadBlob(targetFile, firstItem.Uri);
+
+            var payload = new BlobDownloadRequestedEvent();
+            payload.Target = targetFile;
+            payload.Source = firstItem;
+            payload.FileName = firstItem.Name;
+            payload.FullPath = firstItem.Uri.AbsoluteUri;
+
+            Messenger.Default.Send<BlobDownloadRequestedEvent>(payload);
         }
 
         public async Task UploadFile(StorageFile sourceFile)

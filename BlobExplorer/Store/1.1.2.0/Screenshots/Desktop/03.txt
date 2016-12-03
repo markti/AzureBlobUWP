@@ -1,0 +1,1 @@
+Browse your storage accounts' existing containers

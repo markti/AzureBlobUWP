@@ -1,21 +1,7 @@
 ﻿using BlobExplorer.Navigation;
 using BlobExplorer.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace BlobExplorer.Views
 {
@@ -42,6 +28,11 @@ namespace BlobExplorer.Views
             var context = e.Parameter as BlobDetailNavigationContext;
 
             viewModel.OnNavigatedTo(context);
+        }
+
+        private void CopyBlobUrlClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            viewModel.CopyBlobUrlToClipboard();
         }
     }
 }

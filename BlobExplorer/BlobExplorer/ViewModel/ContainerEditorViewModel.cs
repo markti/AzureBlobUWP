@@ -1,15 +1,12 @@
-﻿using BlobExplorer.Navigation;
-using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlobExplorer.Events;
 using BlobExplorer.Model;
-using BlobExplorer.Events;
+using BlobExplorer.Navigation;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
-using System.Collections.ObjectModel;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
 {

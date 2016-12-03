@@ -8,6 +8,12 @@
     mc:Ignorable="d"
     >
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <ScrollViewer>
             <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="16,0,0,0">
@@ -20,11 +26,9 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-    </Grid>
-    <Page.BottomAppBar>
-        <CommandBar>
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="Save" Label="Save" Click="OnSaveClick" IsEnabled="{Binding CanSave}" />
             <AppBarButton Icon="Cancel" Label="Cancel" Click="OnCancelClick" />
         </CommandBar>
-    </Page.BottomAppBar>
+    </Grid>
 </Page>

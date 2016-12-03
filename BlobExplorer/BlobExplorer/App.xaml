@@ -3,6 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BlobExplorer"
-    RequestedTheme="Light">
+    
+    xmlns:toolkitConverters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    
+    RequestedTheme="Light"
+    >
+
+    <Application.Resources>
+
+        <toolkitConverters:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <toolkitConverters:BoolToVisibilityConverter 
+            x:Key="InvertedBoolToVisibility" 
+            TrueValue="Collapsed" 
+            FalseValue="Visible" 
+            />
+        
+    </Application.Resources>
 
 </Application>

@@ -33,6 +33,12 @@
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
         <GridView
             x:Name="GridView"
             ItemsSource="{Binding Blobs}" 
@@ -43,12 +49,12 @@
             SelectionChanged="GridView_SelectionChanged"
             Margin="4"
             />
+
+        <CommandBar Grid.Row="1">
+            <AppBarButton Label="Download" Icon="Download" Click="DownloadBlobClicked" IsEnabled="{Binding CanDownload}" />
+            <AppBarButton Label="Upload" Icon="Upload" Click="UploadBlobClicked" />
+        </CommandBar>
+
     </Grid>
 
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Label="Download" Icon="Download" Click="AppBarButton_Click" IsEnabled="{Binding CanDownload}" />
-            <AppBarButton Label="Upload" Icon="Upload" Click="AppBarButton_Click_1" />
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

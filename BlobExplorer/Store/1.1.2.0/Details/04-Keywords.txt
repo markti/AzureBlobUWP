@@ -1,0 +1,6 @@
+Microsoft Azure
+
+Blob Storage
+
+Cloud Storage
+

@@ -9,7 +9,7 @@
     xmlns:converters="using:BlobExplorer.Converters"
     >
     <Page.Resources>
-
+        
         <converters:AccessLevelToColorConverter x:Key="AccessLevelConverter" />
 
         <DataTemplate x:Key="ContainerItemTemplate">
@@ -21,6 +21,20 @@
         </DataTemplate>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock 
+            Visibility="{Binding Path=StorageAccount.IsConnected, Converter={StaticResource InvertedBoolToVisibility}}"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Text="There was an error when attempting to connect to this storage account. Please check it's configuration and try again."
+            TextWrapping="WrapWholeWords" Margin="16"
+            />
+
         <GridView
             x:Name="ContainerListGridView"
             ItemTemplate="{StaticResource ContainerItemTemplate}"
@@ -29,18 +43,19 @@
             SelectionMode="Multiple" 
             SelectionChanged="GridView_SelectionChanged"
             Margin="4"
+            Visibility="{Binding Path=StorageAccount.IsConnected, Converter={StaticResource BoolToVisibility}}"
             />
-    </Grid>
-    
-    <Page.BottomAppBar>
-        <CommandBar>
+
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="Add" Label="New Container" Click="OnCreateContainerClick" />
             <AppBarButton Icon="Edit" Label="Edit Container" Click="OnEditContainerClick" IsEnabled="{Binding CanEditContainer}" />
             <AppBarButton Icon="Refresh" Label="Refresh" Click="OnRefreshButtonClick" />
-            <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteContainersClick" IsEnabled="{Binding CanDeletedContainers}" />
+            <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteContainersClick" IsEnabled="{Binding CanDeleteContainers}" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Icon="Remove" Label="Remove Storage Account" Click="OnRemoveStorageAccountClick" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
-    </Page.BottomAppBar>
+        
+    </Grid>
+    
 </Page>

@@ -4,10 +4,7 @@ using BlobExplorer.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
@@ -63,9 +60,11 @@ namespace BlobExplorer.ViewModel
         private void InitializeOptions()
         {
             this.Options.Clear();
+            var transferListItem = new MenuItemViewModel() { Label = "Transfers", SymbolAsChar = '\uE896', PageType = typeof(TransferListView) };
             var addAccountItem = new MenuItemViewModel() { Label = "Add Account", SymbolAsChar = '\uE1E2', PageType = typeof(NewStorageAccountView) };
             var settingsItem = new MenuItemViewModel() { Label = "Settings", SymbolAsChar = '\uE115', PageType = typeof(SettingsView) };
-            
+
+            this.Options.Add(transferListItem);
             this.Options.Add(addAccountItem);
             this.Options.Add(settingsItem);
         }
@@ -77,6 +76,16 @@ namespace BlobExplorer.ViewModel
             var accounts = await storageService.GetStorageAccounts();
             foreach(var item in accounts)
             {
+                try
+                {
+                    var client = new AzureStorageClient(item);
+                    item.IsConnected = true;
+                }
+                catch (Exception ex)
+                {
+                    // error
+                    item.IsConnected = false;
+                }
                 this.Accounts.Add(item);
             }
         }

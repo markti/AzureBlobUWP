@@ -8,7 +8,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,6 +26,8 @@ namespace BlobExplorer
     /// </summary>
     sealed partial class App : Application
     {
+        TransferManager transferManager = null;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -43,6 +47,8 @@ namespace BlobExplorer
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            transferManager = TransferManager.Instance;
+
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -81,6 +87,20 @@ namespace BlobExplorer
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            var view = ApplicationView.GetForCurrentView();
+
+            view.TitleBar.BackgroundColor = Colors.CornflowerBlue;
+            view.TitleBar.ForegroundColor = Colors.White;
+
+            view.TitleBar.ButtonBackgroundColor = Colors.CornflowerBlue;
+            view.TitleBar.ButtonForegroundColor = Colors.White;
+
+            view.TitleBar.ButtonInactiveBackgroundColor = Colors.CornflowerBlue;
+            view.TitleBar.ButtonInactiveForegroundColor = Colors.WhiteSmoke;
+
+            view.TitleBar.InactiveBackgroundColor = Colors.CornflowerBlue;
+            view.TitleBar.InactiveForegroundColor = Colors.WhiteSmoke;
         }
 
         /// <summary>
