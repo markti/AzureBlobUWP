@@ -4,6 +4,7 @@ using BlobExplorer.ViewModel;
 using BlobExplorer.Views;
 using GalaSoft.MvvmLight.Messaging;
 using System;
+using System.Diagnostics;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -46,6 +47,7 @@ namespace BlobExplorer
                 catch (Exception ex)
                 {
                     // do something
+                    Debug.WriteLine(ex);
                 }
             }
         }

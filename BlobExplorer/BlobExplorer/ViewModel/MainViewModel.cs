@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
@@ -85,6 +86,7 @@ namespace BlobExplorer.ViewModel
                 {
                     // error
                     item.IsConnected = false;
+                    Debug.WriteLine(ex);
                 }
                 this.Accounts.Add(item);
             }

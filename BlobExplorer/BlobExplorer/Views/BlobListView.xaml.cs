@@ -98,7 +98,7 @@ namespace BlobExplorer.Views
 
             var savePicker = new FileSavePicker();
             savePicker.SuggestedFileName = firstItem.Name;
-            savePicker.FileTypeChoices.Add("all files", new List<string> { ".avi" });
+            savePicker.FileTypeChoices.Add("All Files", new List<string> { "." });
 
             var targetFile = await savePicker.PickSaveFileAsync();
             if(targetFile != null)

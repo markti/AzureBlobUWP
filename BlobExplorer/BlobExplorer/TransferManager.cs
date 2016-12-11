@@ -3,11 +3,13 @@ using BlobExplorer.Model;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Networking.BackgroundTransfer;
+using Windows.Storage;
 
 namespace BlobExplorer
 {
@@ -94,6 +96,7 @@ namespace BlobExplorer
         {
             var destinationFile = payload.Target;
             var source = payload.Source.Uri;
+            var storageAccount = payload.StorageAccount;
 
             BackgroundDownloader downloader = new BackgroundDownloader();
             DownloadOperation download = downloader.CreateDownload(source, destinationFile);
@@ -106,10 +109,27 @@ namespace BlobExplorer
 
             this.TransferHistory.Add(transfer);
 
-            HandleDownloadAsync(download, true);
+            switch(payload.AccessLevel)
+            {
+                case Microsoft.WindowsAzure.Storage.Blob.BlobContainerPublicAccessType.Off:
+                    // must be downloaded using the SDK
+                    HandlePrivateDownloadAsync(storageAccount, destinationFile, source);
+                    break;
+                default:
+                    // can be downloaded using HTTP client
+                    HandlePublicDownloadAsync(download, true);
+                    break;
+            }
         }
 
-        private async Task HandleDownloadAsync(DownloadOperation download, bool start)
+        private async Task HandlePrivateDownloadAsync(AzureStorageAccount storageAccount, StorageFile destinationFile, Uri source)
+        {
+            var client = new AzureStorageClient(storageAccount);
+            // don't do this anymore!
+            await client.DownloadBlob(destinationFile, source);
+        }
+
+        private async Task HandlePublicDownloadAsync(DownloadOperation download, bool start)
         {
             try
             {
@@ -138,11 +158,13 @@ namespace BlobExplorer
                 string statusCode = response != null ? response.StatusCode.ToString() : String.Empty;
                 
             }
-            catch (TaskCanceledException)
+            catch (TaskCanceledException tce)
             {
+                Debug.WriteLine(tce);
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex);
             }
             finally
             {
