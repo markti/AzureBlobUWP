@@ -34,6 +34,21 @@ namespace BlobExplorer.ViewModel
             get { return canEditContainer; }
             set { canEditContainer = value; this.RaisePropertyChanged(); }
         }
+        private bool canAddContainer;
+
+        public bool CanAddContainer
+        {
+            get { return canAddContainer; }
+            set { canAddContainer = value; this.RaisePropertyChanged(); }
+        }
+        private bool canRefreshList;
+
+        public bool CanRefreshList
+        {
+            get { return canRefreshList; }
+            set { canRefreshList = value; this.RaisePropertyChanged(); }
+        }
+
 
 
         public ContainerListViewModel()
@@ -54,6 +69,8 @@ namespace BlobExplorer.ViewModel
         {
             this.StorageAccount = e.Parameter as AzureStorageAccount;
 
+            this.CanAddContainer = StorageAccount.IsConnected;
+            this.CanRefreshList = StorageAccount.IsConnected;
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = this.StorageAccount.Name });
             InitializeClient();
             RefreshContainers();
