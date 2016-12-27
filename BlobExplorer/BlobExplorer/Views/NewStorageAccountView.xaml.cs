@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.HockeyApp;
 using Microsoft.HockeyApp.DataContracts;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -36,6 +37,15 @@ namespace BlobExplorer.Views
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Add Storage Account" });
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+
+            var newAccountEntry = this.Frame.BackStack.LastOrDefault();
+            this.Frame.BackStack.Remove(newAccountEntry);
+        }
+
         private async void OnSaveClick(object sender, RoutedEventArgs e)
         {
             var et = new EventTelemetry();
@@ -49,7 +59,7 @@ namespace BlobExplorer.Views
             et.Metrics.Add("Duration", diffInSeconds);
             HockeyClient.Current.TrackEvent(et);
 
-            this.Frame.GoBack();
+            this.Frame.Navigate(typeof(NoAccountsView));
         }
 
         private void OnCancelClick(object sender, RoutedEventArgs e)
@@ -62,8 +72,8 @@ namespace BlobExplorer.Views
             var diffInSeconds = (finishRequest - startRequest).TotalSeconds;
             et.Metrics.Add("Duration", diffInSeconds);
             HockeyClient.Current.TrackEvent(et);
-
-            this.Frame.GoBack();
+            
+            this.Frame.Navigate(typeof(NoAccountsView));
         }
     }
 }
