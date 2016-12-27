@@ -92,13 +92,37 @@ namespace BlobExplorer
             return list;
         }
 
+        internal async Task DeleteBlob(AzureStorageBlob item)
+        {
+            var containerName = item.Container;
+            var container = blobClient.GetContainerReference(containerName);
+
+            var blobName = item.Name;
+            var blobRef = container.GetBlockBlobReference(blobName);
+            var isExists = await blobRef.ExistsAsync();
+            if(isExists)
+            {
+                await blobRef.DeleteIfExistsAsync();
+            }
+        }
+
         public async Task UploadBlob(StorageFile targetFile, string containerName, string prefix)
         {
-            var container = blobClient.GetContainerReference(containerName);
-            var fullUrl = container.Uri.AbsolutePath + prefix + targetFile.Name;
-            var blobUri = new Uri(fullUrl);
-            var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobUri);
-            blobRef.UploadFromFileAsync(targetFile);
+            try
+            {
+                var container = blobClient.GetContainerReference(containerName);
+                var fullUrl = container.Uri.AbsoluteUri + "/" + prefix + Uri.EscapeDataString(targetFile.Name);
+                var blobUri = new Uri(fullUrl);
+                var blobName = prefix + targetFile.Name;
+                var blobRef = container.GetBlockBlobReference(blobName);
+                var isExists = await blobRef.ExistsAsync();
+                //var blobRef = await blobClient.GetBlobReferenceFromServerAsync(blobUri);
+                await blobRef.UploadFromFileAsync(targetFile);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public async Task DownloadBlob(StorageFile targetFile, Uri blobUri)

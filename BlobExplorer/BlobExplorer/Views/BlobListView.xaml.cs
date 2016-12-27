@@ -1,11 +1,15 @@
-﻿using BlobExplorer.Model;
+﻿using BlobExplorer.Common;
+using BlobExplorer.Model;
 using BlobExplorer.Navigation;
 using BlobExplorer.ViewModel;
+using Microsoft.HockeyApp;
+using Microsoft.HockeyApp.DataContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -114,12 +118,87 @@ namespace BlobExplorer.Views
 
         private async Task DoUpload()
         {
+            var et = new EventTelemetry();
+            et.Name = "Blob_Upload";
+            var startRequest = DateTime.Now;
+
             var openPicker = new FileOpenPicker();
             openPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add("*");
 
             var sourceFile = await openPicker.PickSingleFileAsync();
-            await viewModel.UploadFile(sourceFile);
+            if(sourceFile != null)
+            {
+                var fileInfo = await sourceFile.GetBasicPropertiesAsync();
+                et.Properties.Add("FileSize", string.Format(new FileSizeFormatProvider(), "{0:fs}", fileInfo.Size));
+                et.Properties.Add("Confirmed", "TRUE");
+                await viewModel.UploadFile(sourceFile);
+                et.Properties.Add("Completed", "TRUE");
+            }
+            else
+            {
+                et.Properties.Add("Confirmed", "FALSE");
+                et.Properties.Add("Completed", "FALSE");
+            }
+
+            var finishRequest = DateTime.Now;
+            var diffInSeconds = (finishRequest - startRequest).TotalSeconds;
+            et.Metrics.Add("Duration", diffInSeconds);
+            HockeyClient.Current.TrackEvent(et);
+        }
+
+        private async void OnRefreshButtonClick(object sender, RoutedEventArgs e)
+        {
+            var et = new EventTelemetry();
+            et.Name = "BlobList_Refresh";
+            var startRequest = DateTime.Now;
+
+            await viewModel.Refresh();
+
+            et.Properties.Add("ItemCount", viewModel.Blobs.Count.ToString());
+
+            var finishRequest = DateTime.Now;
+            var diffInSeconds = (finishRequest - startRequest).TotalSeconds;
+            et.Metrics.Add("Duration", diffInSeconds);
+            HockeyClient.Current.TrackEvent(et);
+        }
+
+        private async void OnDeleteBlobsClick(object sender, RoutedEventArgs e)
+        {
+            var et = new EventTelemetry();
+            et.Name = "Blob_Delete";
+            et.Properties.Add("ItemCount", viewModel.SelectedItems.Count.ToString());
+            var startRequest = DateTime.Now;
+
+            var affirmateev = new UICommand("Yes") { Id = 1 };
+            var nein = new UICommand("No") { Id = 0 };
+            var dialog = new Windows.UI.Popups.MessageDialog("You are about to delete a blob from your Azure Storage Account. This action cannot be undone.", "Are you sure?");
+            dialog.Commands.Add(affirmateev);
+            dialog.Commands.Add(nein);
+            dialog.DefaultCommandIndex = 0;
+            dialog.CancelCommandIndex = 1;
+            var result = await dialog.ShowAsync();
+
+            if (result.Equals(affirmateev))
+            {
+                et.Properties.Add("Confirmed", "TRUE");
+
+                // DELETE!
+                await viewModel.DeleteSelectedBlobs();
+
+                et.Properties.Add("Completed", "TRUE");
+            }
+            else
+            {
+                // ABORT!
+                et.Properties.Add("Confirmed", "FALSE");
+                et.Properties.Add("Completed", "FALSE");
+            }
+
+            var finishRequest = DateTime.Now;
+            var diffInSeconds = (finishRequest - startRequest).TotalSeconds;
+            et.Metrics.Add("Duration", diffInSeconds);
+            HockeyClient.Current.TrackEvent(et);
         }
     }
 }

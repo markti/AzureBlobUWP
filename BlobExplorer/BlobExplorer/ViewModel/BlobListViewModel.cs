@@ -27,6 +27,12 @@ namespace BlobExplorer.ViewModel
             get { return canDownloadItem; }
             set { canDownloadItem = value; RaisePropertyChanged(); }
         }
+        private bool canDeleteBlobs;
+        public bool CanDeleteBlobs
+        {
+            get { return canDeleteBlobs; }
+            set { canDeleteBlobs = value; this.RaisePropertyChanged(); }
+        }
 
         public BlobListViewModel()
         {
@@ -38,7 +44,8 @@ namespace BlobExplorer.ViewModel
         private void SelectedItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var firstItem = SelectedItems.FirstOrDefault();
-            CanDownload = SelectedItems.Count == 1 && firstItem != null && !firstItem.IsDirectory;
+            this.CanDownload = SelectedItems.Count == 1 && firstItem != null && !firstItem.IsDirectory;
+            this.CanDeleteBlobs = this.SelectedItems.Count > 0;
         }
 
         public void OnNavigatedTo(BlobListNavigationContext context)
@@ -48,14 +55,14 @@ namespace BlobExplorer.ViewModel
             this.prefix = context.BlobPrefix;
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = this.Container.Name });
             InitializeClient();
-            RefreshBlobs();
+            Refresh();
         }
 
         private void InitializeClient()
         {
             client = new AzureStorageClient(StorageAccount);
         }
-        private async Task RefreshBlobs()
+        public async Task Refresh()
         {
             var blobs = await client.GetBlobs(Container.Name, prefix);
             this.Blobs.Clear();
@@ -82,7 +89,17 @@ namespace BlobExplorer.ViewModel
 
         public async Task UploadFile(StorageFile sourceFile)
         {
-            client.UploadBlob(sourceFile, this.Container.Name, this.prefix);
+            await client.UploadBlob(sourceFile, this.Container.Name, this.prefix);
+            this.Refresh();
+        }
+
+        public async Task DeleteSelectedBlobs()
+        {
+            foreach (var item in this.SelectedItems)
+            {
+                await client.DeleteBlob(item);
+            }
+            await this.Refresh();
         }
     }
 }

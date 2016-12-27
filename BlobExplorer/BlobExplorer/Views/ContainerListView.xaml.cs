@@ -1,6 +1,8 @@
 ﻿using BlobExplorer.Model;
 using BlobExplorer.Navigation;
 using BlobExplorer.ViewModel;
+using Microsoft.HockeyApp;
+using Microsoft.HockeyApp.DataContracts;
 using System;
 using System.Linq;
 using Windows.UI.Popups;
@@ -40,7 +42,18 @@ namespace BlobExplorer.Views
 
         private void OnRefreshButtonClick(object sender, RoutedEventArgs e)
         {
+            var et = new EventTelemetry();
+            et.Name = "BlobList_Refresh";
+            var startRequest = DateTime.Now;
+
             viewModel.Refresh();
+
+            et.Properties.Add("ItemCount", viewModel.Containers.Count.ToString());
+
+            var finishRequest = DateTime.Now;
+            var diffInSeconds = (finishRequest - startRequest).TotalSeconds;
+            et.Metrics.Add("Duration", diffInSeconds);
+            HockeyClient.Current.TrackEvent(et);
         }
 
         private void GridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -79,6 +92,11 @@ namespace BlobExplorer.Views
 
         private async void OnDeleteContainersClick(object sender, RoutedEventArgs e)
         {
+            var et = new EventTelemetry();
+            et.Name = "Container_Delete";
+            var startRequest = DateTime.Now;
+            et.Properties.Add("ItemCount", viewModel.SelectedContainers.Count.ToString());
+
             var affirmateev = new UICommand("Yes") { Id = 1 };
             var nein = new UICommand("No") { Id = 0 };
             var dialog = new Windows.UI.Popups.MessageDialog("You are about to delete a container from your Azure Storage Account. All blobs stored within this container will be deleted as a result of this action. This action cannot be undone.", "Are you sure?");
@@ -90,13 +108,22 @@ namespace BlobExplorer.Views
 
             if(result.Equals(affirmateev))
             {
+                et.Properties.Add("Confirmed", "TRUE");
                 // DELETE!
-                viewModel.DeleteSelectedContainers();
+                await viewModel.DeleteSelectedContainers();
+                et.Properties.Add("Completed", "TRUE");
             }
             else
             {
                 // ABORT!
+                et.Properties.Add("Confirmed", "FALSE");
+                et.Properties.Add("Completed", "FALSE");
             }
+
+            var finishRequest = DateTime.Now;
+            var diffInSeconds = (finishRequest - startRequest).TotalSeconds;
+            et.Metrics.Add("Duration", diffInSeconds);
+            HockeyClient.Current.TrackEvent(et);
         }
 
         private void GridView_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,1 +1,1 @@
-F:\Code\Repos\github\AzureBlobUWP\BlobExplorer\BlobExplorer\AppPackages\BlobExplorer_1.1.3.0\BlobExplorer_1.1.3.0_x86_x64_arm.appxbundle
+F:\Code\Repos\github\AzureBlobUWP\BlobExplorer\BlobExplorer\AppPackages\BlobExplorer_1.1.4.0\BlobExplorer_1.1.4.0_x86_x64_arm.appxbundle

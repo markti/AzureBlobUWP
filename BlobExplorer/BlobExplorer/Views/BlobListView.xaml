@@ -53,6 +53,10 @@
         <CommandBar Grid.Row="1">
             <AppBarButton Label="Download" Icon="Download" Click="DownloadBlobClicked" IsEnabled="{Binding CanDownload}" />
             <AppBarButton Label="Upload" Icon="Upload" Click="UploadBlobClicked" />
+            <AppBarButton Icon="Refresh" Label="Refresh" Click="OnRefreshButtonClick" IsEnabled="{Binding CanRefreshList}" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Delete" Label="Delete" Click="OnDeleteBlobsClick" IsEnabled="{Binding CanDeleteBlobs}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
 
     </Grid>
