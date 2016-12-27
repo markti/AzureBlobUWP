@@ -2,6 +2,7 @@
 using BlobExplorer.Model;
 using BlobExplorer.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.HockeyApp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -26,6 +27,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            HockeyClient.Current.TrackPageView("TransferList");
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Transfers" });
 
             viewModel.OnNavigatedTo();

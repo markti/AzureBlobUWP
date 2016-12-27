@@ -1,5 +1,6 @@
 ﻿using BlobExplorer.Events;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.HockeyApp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -19,6 +20,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            HockeyClient.Current.TrackPageView("NoAccounts");
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Home" });
             Messenger.Default.Send<SelectionClearedEvent>(new SelectionClearedEvent());
         }

@@ -1,5 +1,6 @@
 ﻿using BlobExplorer.Navigation;
 using BlobExplorer.ViewModel;
+using Microsoft.HockeyApp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -27,11 +28,13 @@ namespace BlobExplorer.Views
 
             var context = e.Parameter as BlobDetailNavigationContext;
 
+            HockeyClient.Current.TrackPageView("BlobDetails");
             viewModel.OnNavigatedTo(context);
         }
 
         private void CopyBlobUrlClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            HockeyClient.Current.TrackEvent("Blob_CopyUrl");
             viewModel.CopyBlobUrlToClipboard();
         }
     }

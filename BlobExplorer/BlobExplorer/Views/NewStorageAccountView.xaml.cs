@@ -32,6 +32,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            HockeyClient.Current.TrackPageView("NewStorageAccount");
             startRequest = DateTime.Now;
 
             Messenger.Default.Send<PageTitleChangedEvent>(new PageTitleChangedEvent() { Title = "Add Storage Account" });

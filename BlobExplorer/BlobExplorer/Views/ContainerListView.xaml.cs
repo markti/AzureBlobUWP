@@ -32,6 +32,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            HockeyClient.Current.TrackPageView("ContainerList");
             viewModel.OnNavigatedTo(e);
         }
 

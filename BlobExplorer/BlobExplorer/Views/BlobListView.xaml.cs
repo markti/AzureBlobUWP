@@ -36,6 +36,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            HockeyClient.Current.TrackPageView("BlobList");
             viewModel.OnNavigatedTo(e.Parameter as BlobListNavigationContext);
         }
         private void GridView_ItemClick(object sender, ItemClickEventArgs e)

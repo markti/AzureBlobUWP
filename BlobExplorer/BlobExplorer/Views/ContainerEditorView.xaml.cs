@@ -30,6 +30,7 @@ namespace BlobExplorer.Views
         {
             base.OnNavigatedTo(e);
 
+            HockeyClient.Current.TrackPageView("ContainerEditor");
             startRequest = DateTime.Now;
 
             viewModel.OnNavigatedTo(e.Parameter as ContainerEditorNavigationContext);
