@@ -77,7 +77,7 @@
                                 Margin="2"
                                 />
                             <ToolTipService.ToolTip>
-                                <TextBlock TextWrapping="Wrap" Text="An Azure Container name may container lowercase letters, numbers and dashes. It must be at least 3 characters but no more than 63."/>
+                                <TextBlock TextWrapping="Wrap" Text="Error" x:Uid="ErrorMessage_ContainerName" />
                             </ToolTipService.ToolTip>
                         </ContentControl>
                     </Grid>
