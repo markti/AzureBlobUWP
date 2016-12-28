@@ -59,7 +59,28 @@
             <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="16,0,0,0">
                     <TextBlock Text="Container Name" />
-                    <TextBox Text="{Binding Path=CurrentContainer.Name, Mode=TwoWay}" IsEnabled="{Binding CanEditName}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding Path=CurrentContainer.Name, Mode=TwoWay}" IsEnabled="{Binding CanEditName}" />
+                        <ContentControl 
+                            Visibility="{Binding IsContainerNameValid, Converter={StaticResource InvertedBoolToVisibility}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"
+                            >
+                            <Rectangle 
+                                Width="24"
+                                VerticalAlignment="Stretch"
+                                Fill="Red" 
+                                Margin="2"
+                                />
+                            <ToolTipService.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="An Azure Container name may container lowercase letters, numbers and dashes. It must be at least 3 characters but no more than 63."/>
+                            </ToolTipService.ToolTip>
+                        </ContentControl>
+                    </Grid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="16,16,0,0">
                     <TextBlock Text="Access Level" />

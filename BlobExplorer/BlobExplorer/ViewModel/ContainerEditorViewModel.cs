@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
@@ -36,6 +37,14 @@ namespace BlobExplorer.ViewModel
             get { return canEditName; }
             set { canEditName = value; this.RaisePropertyChanged(); }
         }
+        private bool isContainerNameInvalid;
+
+        public bool IsContainerNameValid
+        {
+            get { return isContainerNameInvalid; }
+            set { isContainerNameInvalid = value; this.RaisePropertyChanged(); }
+        }
+
         public bool IsNew { get; set; }
         public AzureStorageAccount StorageAccount { get; set; }
 
@@ -94,7 +103,11 @@ namespace BlobExplorer.ViewModel
 
         private void Validate()
         {
-            this.CanSave = CurrentContainer.Name.Length > 0 && this.CurrentContainer.AccessLevel != null;
+            var hasRequiredFields = CurrentContainer.Name.Length > 0 && this.CurrentContainer.AccessLevel != null;
+
+            var pattern = @"^([a-zA-Z0-9-]){3,63}$";
+            this.IsContainerNameValid = Regex.Match(this.CurrentContainer.Name, pattern).Length > 0;
+            this.CanSave = this.IsContainerNameValid && hasRequiredFields;
         }
 
         public async Task<bool> Save()
