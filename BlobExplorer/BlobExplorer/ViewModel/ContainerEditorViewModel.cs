@@ -105,7 +105,7 @@ namespace BlobExplorer.ViewModel
         {
             var hasRequiredFields = CurrentContainer.Name.Length > 0 && this.CurrentContainer.AccessLevel != null;
 
-            var pattern = @"^([a-zA-Z0-9-]){3,63}$";
+            var pattern = @"^([a-z0-9-]){3,63}$";
             this.IsContainerNameValid = Regex.Match(this.CurrentContainer.Name, pattern).Length > 0;
             this.CanSave = this.IsContainerNameValid && hasRequiredFields;
         }
