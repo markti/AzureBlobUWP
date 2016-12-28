@@ -120,4 +120,7 @@
   <data name="ErrorMessage_ContainerName.Text" xml:space="preserve">
     <value>An Azure Container name may container lowercase letters, numbers and dashes. It must be at least 3 characters but no more than 63.</value>
   </data>
+  <data name="ErrorMessage_StorageAccountName.Text" xml:space="preserve">
+    <value>An Azure Storage account name may container lowercase letters and numbers. It must be at least 3 characters but no more than 24.</value>
+  </data>
 </root>

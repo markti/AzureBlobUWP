@@ -1,5 +1,6 @@
 ﻿using BlobExplorer.Model;
 using GalaSoft.MvvmLight;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlobExplorer.ViewModel
@@ -12,6 +13,13 @@ namespace BlobExplorer.ViewModel
         {
             get { return currentAccount; }
             set { currentAccount = value; }
+        }
+        private bool isStorageAccountNameInvalid;
+
+        public bool IsStorageAccountNameValid
+        {
+            get { return isStorageAccountNameInvalid; }
+            set { isStorageAccountNameInvalid = value; this.RaisePropertyChanged(); }
         }
         private bool canSave;
         public bool CanSave
@@ -33,9 +41,13 @@ namespace BlobExplorer.ViewModel
 
         private void Validate()
         {
-            CanSave =
-                !string.IsNullOrEmpty(this.CurrentAccount.Name) && this.CurrentAccount.Name.Length > 0 && 
+            var hasRequiredFields =
+                !string.IsNullOrEmpty(this.CurrentAccount.Name) && this.CurrentAccount.Name.Length > 0 &&
                 !string.IsNullOrEmpty(this.CurrentAccount.Key) && this.CurrentAccount.Key.Length > 0;
+
+            var pattern = @"^([a-z0-9]){3,24}$";
+            this.IsStorageAccountNameValid = Regex.Match(this.CurrentAccount.Name, pattern).Length > 0;
+            this.CanSave = this.IsStorageAccountNameValid && hasRequiredFields;
         }
 
         public async Task Save()

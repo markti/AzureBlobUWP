@@ -18,7 +18,28 @@
             <StackPanel Orientation="Vertical" Width="250" Margin="16" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical" Margin="16,0,0,0">
                     <TextBlock Text="Account Name" />
-                    <TextBox Text="{Binding Path=CurrentAccount.Name, Mode=TwoWay}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Text="{Binding Path=CurrentAccount.Name, Mode=TwoWay}" />
+                        <ContentControl 
+                            Visibility="{Binding IsStorageAccountNameValid, Converter={StaticResource InvertedBoolToVisibility}}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"
+                            >
+                            <Rectangle 
+                                Width="24"
+                                VerticalAlignment="Stretch"
+                                Fill="Red" 
+                                Margin="2"
+                                />
+                            <ToolTipService.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="Error" x:Uid="ErrorMessage_StorageAccountName" />
+                            </ToolTipService.ToolTip>
+                        </ContentControl>
+                    </Grid>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="16,16,0,0">
                     <TextBlock Text="Account Key" />
